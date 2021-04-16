@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Linq;
 using Autofac;
 using OttoPilot.Domain.BusinessLayer;
 using OttoPilot.Domain.BusinessLayer.FileProviders;
 using OttoPilot.Domain.BusinessLayer.StepImplementations;
-using OttoPilot.Domain.BusinessObjects.Entities;
 using OttoPilot.Domain.BusinessObjects.StepParameters;
 using OttoPilot.Domain.Interfaces;
 using OttoPilot.Domain.Types;

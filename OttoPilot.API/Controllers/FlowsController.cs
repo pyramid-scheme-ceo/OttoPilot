@@ -21,9 +21,15 @@ namespace OttoPilot.API.Controllers
         {
             _stepSupervisorFactory = stepSupervisorFactory;
         }
-        
+
         // GET
         public async Task<IActionResult> Index(CancellationToken cancel)
+        {
+            return Ok("hello");
+        }
+        
+        [HttpPost("{flowId:long}/run")]
+        public async Task<IActionResult> RunFlow(long flowId, CancellationToken cancel)
         {
             var steps = new List<Step>
             {
@@ -52,8 +58,8 @@ namespace OttoPilot.API.Controllers
                     throw;
                 }
             }
-            
-            return Ok("hello");
+
+            return Ok("Flow complete");
         }
     }
 }

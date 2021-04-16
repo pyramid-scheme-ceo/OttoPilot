@@ -4,7 +4,7 @@ using OttoPilot.Domain.Types;
 
 namespace OttoPilot.Domain.BusinessObjects.Entities
 {
-    public class Step : IStep
+    public class Step : Entity, IStep
     {
         public StepType StepType { get; set; }
         public int Order { get; set; }

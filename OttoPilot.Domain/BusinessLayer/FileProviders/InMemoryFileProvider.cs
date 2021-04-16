@@ -15,6 +15,7 @@ namespace OttoPilot.Domain.BusinessLayer.FileProviders
             _fileSystem = new Dictionary<string, string>();
         }
         
+        /// <inheritdoc />
         public Task<DataTable> ReadFromCsv(string fileName)
         {
             if (!_fileSystem.ContainsKey(fileName))
@@ -45,6 +46,7 @@ namespace OttoPilot.Domain.BusinessLayer.FileProviders
             return Task.FromResult(result);
         }
 
+        /// <inheritdoc />
         public Task WriteToCsv(string fileName, DataTable data)
         {
             var csvString = "";
