@@ -30,7 +30,7 @@ namespace OttoPilot.Domain.UnitTests.BusinessLayer.StepImplementations
             var result = await _sut.Execute(new LoadCsvStepParameters
             {
                 FileName = TestFileName,
-                DatasetName = TestDatasetName
+                OutputDatasetName = TestDatasetName
             }, CancellationToken.None);
             
             Assert.AreEqual(TestDatasetName, result.OutputDatasetName);

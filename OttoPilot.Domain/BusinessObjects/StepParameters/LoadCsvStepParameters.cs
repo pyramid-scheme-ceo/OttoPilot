@@ -3,6 +3,6 @@
     public class LoadCsvStepParameters
     {
         public string FileName { get; set; }
-        public string DatasetName { get; set; }
+        public string OutputDatasetName { get; set; }
     }
 }

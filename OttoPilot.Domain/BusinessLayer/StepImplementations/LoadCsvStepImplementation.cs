@@ -20,11 +20,11 @@ namespace OttoPilot.Domain.BusinessLayer.StepImplementations
         public async Task<StepResult> Execute(LoadCsvStepParameters parameters, CancellationToken cancel)
         {
             var data = await _fileProvider.ReadFromCsv(parameters.FileName);
-            _datasetPool.InsertOrReplace(parameters.DatasetName, data);
+            _datasetPool.InsertOrReplace(parameters.OutputDatasetName, data);
 
             return new StepResult
             {
-                OutputDatasetName = parameters.DatasetName
+                OutputDatasetName = parameters.OutputDatasetName
             };
         }
     }

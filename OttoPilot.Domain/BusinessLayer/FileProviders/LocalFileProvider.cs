@@ -13,7 +13,11 @@ namespace OttoPilot.Domain.BusinessLayer.FileProviders
         /// <inheritdoc />
         public Task<DataTable> ReadFromCsv(string fileName)
         {
-            using var parser = new GenericParserAdapter(fileName);
+            using var parser = new GenericParserAdapter(fileName)
+            {
+                FirstRowHasHeader = true
+            };
+
             return Task.FromResult(parser.GetDataTable());
         }
 

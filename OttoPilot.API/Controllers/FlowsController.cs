@@ -4,6 +4,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using OttoPilot.Domain.BusinessObjects;
 using OttoPilot.Domain.BusinessObjects.Entities;
 using OttoPilot.Domain.BusinessObjects.StepParameters;
 using OttoPilot.Domain.Interfaces;
@@ -16,10 +17,12 @@ namespace OttoPilot.API.Controllers
     public class FlowsController : Controller
     {
         private readonly Func<IStep, IStepSupervisor> _stepSupervisorFactory;
+        private readonly IDatasetPool _datasetPool;
 
-        public FlowsController(Func<IStep, IStepSupervisor> stepSupervisorFactory)
+        public FlowsController(Func<IStep, IStepSupervisor> stepSupervisorFactory, IDatasetPool datasetPool)
         {
             _stepSupervisorFactory = stepSupervisorFactory;
+            _datasetPool = datasetPool;
         }
 
         // GET
@@ -39,8 +42,26 @@ namespace OttoPilot.API.Controllers
                     StepType = StepType.LoadCsv,
                     SerialisedParameters = JsonSerializer.Serialize(new LoadCsvStepParameters
                     {
-                        FileName = "TestInput.csv",
-                        DatasetName = "Input"
+                        FileName = @"C:\Users\matta\Documents\Test.csv",
+                        OutputDatasetName = "TestDataset"
+                    })
+                },
+                new Step<TransformDatasetStepParameters>
+                {
+                    Order = 2,
+                    StepType = StepType.TransformFile,
+                    SerialisedParameters = JsonSerializer.Serialize(new TransformDatasetStepParameters
+                    {
+                        InputDatasetName = "TestDataset",
+                        OutputDatasetName = "TransformedDataset",
+                        ColumnMappings = new List<ColumnMapping>
+                        {
+                            new ColumnMapping
+                            {
+                                SourceColumnName = "LastName",
+                                DestinationColumnName = "Surname",
+                            },
+                        },
                     })
                 }
             };
@@ -51,6 +72,7 @@ namespace OttoPilot.API.Controllers
                 {
                     var supervisor = _stepSupervisorFactory(step);
                     var result = await supervisor.Run(cancel);
+                    var x = _datasetPool.GetDataSet("TestDataset");
                 }
                 catch (Exception e)
                 {
@@ -58,6 +80,9 @@ namespace OttoPilot.API.Controllers
                     throw;
                 }
             }
+
+            var ds1 = _datasetPool.GetDataSet("TestDataset");
+            var ds2 = _datasetPool.GetDataSet("TransformedDataset");
 
             return Ok("Flow complete");
         }

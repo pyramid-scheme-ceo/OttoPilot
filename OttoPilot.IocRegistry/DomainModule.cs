@@ -17,10 +17,11 @@ namespace OttoPilot.IocRegistry
             
             #region StepRegistrations
             builder.RegisterStep<LoadCsvStepParameters, LoadCsvStepImplementation>();
+            builder.RegisterStep<TransformDatasetStepParameters, TransformDatasetStepImplementation>();
             #endregion
             
-            builder.RegisterType<InMemoryFileProvider>().As<IFileProvider>();
-            builder.RegisterType<DatasetPool>().As<IDatasetPool>();
+            builder.RegisterType<LocalFileProvider>().As<IFileProvider>();
+            builder.RegisterType<DatasetPool>().As<IDatasetPool>().SingleInstance();
         }
 
         private static void RegisterStepSupervisorFactory(ContainerBuilder builder)
@@ -31,6 +32,7 @@ namespace OttoPilot.IocRegistry
                 var parametersType = step.StepType switch
                 {
                     StepType.LoadCsv => typeof(LoadCsvStepParameters),
+                    StepType.TransformFile => typeof(TransformDatasetStepParameters),
                     _ => throw new ArgumentException("Unexpected step type")
                 };
 

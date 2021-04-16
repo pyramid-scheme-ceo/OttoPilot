@@ -2,6 +2,7 @@
 {
     public enum StepType
     {
-        LoadCsv
+        LoadCsv,
+        TransformFile,
     }
 }
