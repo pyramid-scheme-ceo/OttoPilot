@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OttoPilot.API", "OttoPilot.API\OttoPilot.API.csproj", "{CBF21DF2-9E49-4E29-AA8A-AC2C614CE4C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OttoPilot.Domain", "OttoPilot.Domain\OttoPilot.Domain.csproj", "{3C9E8F63-A1D2-49CF-A700-F7604A54448C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2F0F58B3-EDC3-482B-B268-77E64A0ECA10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OttoPilot.Domain.UnitTests", "OttoPilot.Domain.UnitTests\OttoPilot.Domain.UnitTests.csproj", "{E46A65E8-5176-44BD-A99E-5D12B3675C59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OttoPilot.IocRegistry", "OttoPilot.IocRegistry\OttoPilot.IocRegistry.csproj", "{267D1A02-C5F6-4410-BC54-18125C7AA6F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBF21DF2-9E49-4E29-AA8A-AC2C614CE4C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBF21DF2-9E49-4E29-AA8A-AC2C614CE4C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBF21DF2-9E49-4E29-AA8A-AC2C614CE4C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBF21DF2-9E49-4E29-AA8A-AC2C614CE4C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C9E8F63-A1D2-49CF-A700-F7604A54448C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C9E8F63-A1D2-49CF-A700-F7604A54448C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C9E8F63-A1D2-49CF-A700-F7604A54448C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C9E8F63-A1D2-49CF-A700-F7604A54448C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E46A65E8-5176-44BD-A99E-5D12B3675C59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E46A65E8-5176-44BD-A99E-5D12B3675C59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E46A65E8-5176-44BD-A99E-5D12B3675C59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E46A65E8-5176-44BD-A99E-5D12B3675C59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{267D1A02-C5F6-4410-BC54-18125C7AA6F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{267D1A02-C5F6-4410-BC54-18125C7AA6F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{267D1A02-C5F6-4410-BC54-18125C7AA6F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{267D1A02-C5F6-4410-BC54-18125C7AA6F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E46A65E8-5176-44BD-A99E-5D12B3675C59} = {2F0F58B3-EDC3-482B-B268-77E64A0ECA10}
+	EndGlobalSection
+EndGlobal
