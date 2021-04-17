@@ -2,10 +2,10 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 
-module Api {
+export namespace Api {
 	export interface Flow
 	{
-		Id: number;
-		Name: string;
+		id: number;
+		name: string;
 	}
 }

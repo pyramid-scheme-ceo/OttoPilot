@@ -3,11 +3,11 @@
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import { getAllFlows } from "./flows.service";
 import { makeStyles } from "@material-ui/core/styles";
+import { Api } from "../../models/api-models";
 
 const useStyles = makeStyles({
   table: {
@@ -33,8 +33,8 @@ export default function FlowsTable() {
       </TableHead>
       <TableBody>
         {flows.map((flow) => (
-          <TableRow key={flow.Id}>
-            <TableCell component="th" scope="row">{flow.Name}</TableCell>
+          <TableRow key={flow.id}>
+            <TableCell component="th" scope="row">{flow.name}</TableCell>
           </TableRow>
         ))}
       </TableBody>
