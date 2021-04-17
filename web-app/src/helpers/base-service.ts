@@ -4,7 +4,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const axiosInstance = axios.create({
-  baseURL: process.env.API_HOSTNAME,
+  baseURL: process.env.REACT_APP_API_HOSTNAME,
 });
 
 export function httpGet<TR>(url: string): Promise<TR> {

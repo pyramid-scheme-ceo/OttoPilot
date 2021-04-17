@@ -28,13 +28,14 @@ export default function FlowsTable() {
       <TableHead>
         <TableRow>
           <TableCell>ID</TableCell>
-          <TableCell align="right">Name</TableCell>
+          <TableCell align="left">Name</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
         {flows.map((flow) => (
           <TableRow key={flow.id}>
-            <TableCell component="th" scope="row">{flow.name}</TableCell>
+            <TableCell component="th" scope="row">{flow.id}</TableCell>
+            <TableCell component="th" align="left">{flow.name}</TableCell>
           </TableRow>
         ))}
       </TableBody>
