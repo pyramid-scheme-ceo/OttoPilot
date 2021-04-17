@@ -10,4 +10,5 @@ export interface RouteDefinition {
   key: string;
   path: string;
   component: JSX.Element;
+  exact: boolean;
 }

@@ -10,6 +10,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OttoPilot.Domain.UnitTests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OttoPilot.IocRegistry", "OttoPilot.IocRegistry\OttoPilot.IocRegistry.csproj", "{267D1A02-C5F6-4410-BC54-18125C7AA6F8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OttoPilot.DAL", "OttoPilot.DAL\OttoPilot.DAL.csproj", "{69C80769-CFF4-4F39-8BFF-98EDB3244DD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{267D1A02-C5F6-4410-BC54-18125C7AA6F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{267D1A02-C5F6-4410-BC54-18125C7AA6F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{267D1A02-C5F6-4410-BC54-18125C7AA6F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69C80769-CFF4-4F39-8BFF-98EDB3244DD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69C80769-CFF4-4F39-8BFF-98EDB3244DD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69C80769-CFF4-4F39-8BFF-98EDB3244DD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69C80769-CFF4-4F39-8BFF-98EDB3244DD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E46A65E8-5176-44BD-A99E-5D12B3675C59} = {2F0F58B3-EDC3-482B-B268-77E64A0ECA10}

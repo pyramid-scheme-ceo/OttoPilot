@@ -31,7 +31,7 @@ function App() {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           {routes.map(route => (
-            <Route key={route.key} path={route.path} exact={route.path === '/'}>
+            <Route key={route.key} path={route.path} exact={route.exact}>
               {route.component}
             </Route>
           ))}

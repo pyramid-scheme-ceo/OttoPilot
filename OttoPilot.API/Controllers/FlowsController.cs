@@ -16,19 +16,21 @@ namespace OttoPilot.API.Controllers
     [Route("api/[controller]")]
     public class FlowsController : Controller
     {
+        private readonly IRepository<Flow> _flowRepository;
         private readonly Func<IStep, IStepSupervisor> _stepSupervisorFactory;
         private readonly IDatasetPool _datasetPool;
 
-        public FlowsController(Func<IStep, IStepSupervisor> stepSupervisorFactory, IDatasetPool datasetPool)
+        public FlowsController(IRepository<Flow> flowRepository, Func<IStep, IStepSupervisor> stepSupervisorFactory, IDatasetPool datasetPool)
         {
+            _flowRepository = flowRepository;
             _stepSupervisorFactory = stepSupervisorFactory;
             _datasetPool = datasetPool;
         }
 
         // GET
-        public async Task<IActionResult> Index(CancellationToken cancel)
+        public IActionResult Index()
         {
-            return Ok("hello");
+            return Ok(_flowRepository.All());
         }
         
         [HttpPost("{flowId:long}/run")]
