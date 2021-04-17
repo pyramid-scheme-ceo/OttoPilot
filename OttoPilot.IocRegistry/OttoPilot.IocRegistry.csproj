@@ -9,6 +9,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\OttoPilot.DAL\OttoPilot.DAL.csproj" />
       <ProjectReference Include="..\OttoPilot.Domain\OttoPilot.Domain.csproj" />
     </ItemGroup>
 

@@ -21,6 +21,7 @@ namespace OttoPilot.API
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
+            builder.RegisterModule<DalModule>();
             builder.RegisterModule<DomainModule>();
         }
 

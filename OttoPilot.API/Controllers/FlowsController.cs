@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,10 +28,15 @@ namespace OttoPilot.API.Controllers
             _datasetPool = datasetPool;
         }
 
-        // GET
         public IActionResult Index()
         {
-            return Ok(_flowRepository.All());
+            var result = _flowRepository.All().Select(f => new ApiModels.Flow
+            {
+                Id = f.Id,
+                Name = f.Name
+            });
+            
+            return Ok(result);
         }
         
         [HttpPost("{flowId:long}/run")]

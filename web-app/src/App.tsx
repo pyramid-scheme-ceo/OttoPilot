@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {SharedToolbar, SideNavigation} from "./components/navigation";
 import { CssBaseline } from "@material-ui/core";
 import { routes, sideNavigationLinks } from "./config";
+import SharedBreadcrumbs from "./components/navigation/shared-breadcrumbs";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,6 +31,7 @@ function App() {
         
         <main className={classes.content}>
           <div className={classes.toolbar} />
+          <SharedBreadcrumbs />
           {routes.map(route => (
             <Route key={route.key} path={route.path} exact={route.exact}>
               {route.component}
