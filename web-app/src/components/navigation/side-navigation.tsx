@@ -9,7 +9,7 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
-import { Route } from '../../models/ui-models';
+import { LinkDefinition } from '../../models/ui-models';
 import logo from '../../assets/images/ottopilot.png';
 
 const drawerWidth = 240;
@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 interface SideNavigationProps {
-  routes: Route[];
+  links: LinkDefinition[];
 }
 
 const SideNavigation = (props: SideNavigationProps): JSX.Element => {
@@ -52,13 +52,19 @@ const SideNavigation = (props: SideNavigationProps): JSX.Element => {
         src={logo}
       />
       <List component="nav">
-        {RenderLinks(props.routes, expandedKey, setExpandedKey)}
+        {RenderLinks(props.links, expandedKey, setExpandedKey)}
       </List>
     </Drawer>
   );
 };
 
-function RenderLinks(routes: Route[], expandedKey: string, setExpandedKey: React.Dispatch<React.SetStateAction<string>>): JSX.Element {
+/**
+ * Recursively renders the routes and any children within a collapsible menu item
+ * @param routes The routes to render
+ * @param expandedKey The key of the currently expanded menu item
+ * @param setExpandedKey The function to set the currently expanded menu item
+ */
+function RenderLinks(routes: LinkDefinition[], expandedKey: string, setExpandedKey: React.Dispatch<React.SetStateAction<string>>): JSX.Element {
   return <>
     {routes.map(r => (
       r.children.length > 0 ? (

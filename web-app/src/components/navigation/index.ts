@@ -1,1 +1,2 @@
-﻿export * from './side-navigation';
+﻿export * from './shared-toolbar';
+export * from './side-navigation';
