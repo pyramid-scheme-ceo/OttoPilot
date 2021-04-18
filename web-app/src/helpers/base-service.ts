@@ -1,5 +1,6 @@
 ﻿import axios from 'axios';
 import dotenv from 'dotenv';
+import {Api} from "../models/api-models";
 
 dotenv.config();
 
@@ -7,10 +8,10 @@ const axiosInstance = axios.create({
   baseURL: process.env.REACT_APP_API_HOSTNAME,
 });
 
-export function httpGet<TR>(url: string): Promise<TR> {
-  return axiosInstance.get<TR>(url).then(result => result.data);
+export function httpGet<TR>(url: string, unwrapApiResponse: boolean = true): Promise<TR> {
+  return axiosInstance.get<Api.ApiResponse<TR>>(url).then(result => result.data.data);
 }
 
 export function httpPost<T, TR>(url: string, data: T): Promise<TR> {
-  return axiosInstance.post<T, TR>(url);
+  return axiosInstance.post<T, Api.ApiResponse<TR>>(url).then(result => result.data);
 }

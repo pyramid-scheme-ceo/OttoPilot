@@ -12,6 +12,7 @@ using OttoPilot.Domain.BusinessObjects.StepParameters;
 using OttoPilot.Domain.Interfaces;
 using OttoPilot.Domain.Types;
 using Flow = OttoPilot.Domain.BusinessObjects.Entities.Flow;
+using Step = OttoPilot.Domain.BusinessObjects.Entities.Step;
 
 namespace OttoPilot.API.Controllers
 {

@@ -2,6 +2,7 @@
 
 namespace OttoPilot.API.ApiModels
 {
+    // Uses custom TS visitor (see ReinforcedTypings.cs)
     [TsInterface(Namespace = "Api", AutoI = false)]
     public class ApiResponse
     {
@@ -39,8 +40,7 @@ namespace OttoPilot.API.ApiModels
             };
         }
     }
-
-    [TsInterface(Namespace = "Api", AutoI = false)]
+    
     public class ApiResponse<T> : ApiResponse
     {
         public T Data { get; set; }

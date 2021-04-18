@@ -3,18 +3,21 @@
 //     the code is regenerated.
 
 export namespace Api {
-	export interface ApiResponse
-	{
-		successful: boolean;
-		message: string;
-	}
-	export interface ApiResponse<T> extends Api.ApiResponse
-	{
-		data: T;
-	}
+  export interface ApiResponse<T = any> {
+    successful: boolean;
+    message: string;
+    data: T
+  }
 	export interface Flow
 	{
 		id: number;
 		name: string;
+	}
+	export interface Step
+	{
+		name: string;
+		stepType: number;
+		order: number;
+		serialisedParameters: string;
 	}
 }
