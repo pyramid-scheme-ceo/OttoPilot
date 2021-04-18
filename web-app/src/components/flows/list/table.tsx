@@ -5,9 +5,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { getAllFlows } from "./flows.service";
+import { getAllFlows } from "../shared/flows.service";
 import { makeStyles } from "@material-ui/core/styles";
-import { Api } from "../../models/api-models";
+import { Api } from "../../../models/api-models";
 
 const useStyles = makeStyles({
   table: {

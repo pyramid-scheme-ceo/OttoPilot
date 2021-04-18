@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import FlowForm from "../../components/flows/form";
+import FlowForm from "../../components/flows/form/form";
 import {makeStyles} from "@material-ui/core/styles";
 
 const useStyles = makeStyles({
