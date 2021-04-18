@@ -5,11 +5,13 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using OttoPilot.API.ApiModels;
 using OttoPilot.Domain.BusinessObjects;
 using OttoPilot.Domain.BusinessObjects.Entities;
 using OttoPilot.Domain.BusinessObjects.StepParameters;
 using OttoPilot.Domain.Interfaces;
 using OttoPilot.Domain.Types;
+using Flow = OttoPilot.Domain.BusinessObjects.Entities.Flow;
 
 namespace OttoPilot.API.Controllers
 {
@@ -36,7 +38,7 @@ namespace OttoPilot.API.Controllers
                 Name = f.Name
             });
             
-            return Ok(result);
+            return Ok(ApiResponse.Success(result));
         }
         
         [HttpPost("{flowId:long}/run")]
