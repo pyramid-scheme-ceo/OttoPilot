@@ -1,11 +1,13 @@
 ﻿import React from 'react';
 import {Api} from "../../../models/api-models";
 import {makeAutoObservable} from "mobx";
+import {createFlow} from "../shared/flows.service";
 
 export default class FormStore {
   flowModel: Api.Flow;
   steps: Api.Step[];
   stepModelHidden: boolean;
+  nextOrder: number;
   
   constructor() {
     this.flowModel = {
@@ -14,6 +16,7 @@ export default class FormStore {
     }
     this.steps = [];
     this.stepModelHidden = true;
+    this.nextOrder = 0;
     
     makeAutoObservable(this);
   }
@@ -38,11 +41,32 @@ export default class FormStore {
     this.steps.push({
       stepType,
       name: 'New Step',
-      order: 0,
+      order: this.nextOrder,
       serialisedParameters: '',
     });
     
+    this.nextOrder++;
     this.hideStepModal();
+  }
+  
+  updateStep(order: number, step: Api.Step) {
+    this.steps[order] = step;
+  }
+  
+  updateStepConfiguration<T>(order: number, config: T) {
+    this.steps[order] = {
+      ...this.steps[order],
+      serialisedParameters: JSON.stringify(config),
+    };
+  }
+  
+  deleteStep(order: number) {
+    this.steps.splice(order, 1);
+    this.nextOrder--;
+  }
+  
+  saveCurrentFlow() {
+    createFlow()
   }
 }
 

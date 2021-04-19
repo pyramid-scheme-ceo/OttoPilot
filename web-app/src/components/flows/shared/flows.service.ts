@@ -5,6 +5,6 @@ export function getAllFlows(): Promise<Api.Flow[]> {
   return httpGet<Api.Flow[]>('/api/flows');
 }
 
-// export function createFlow(flow: Api.Flow) {
-//   return httpPost<Api.Flow, >()
-// }
+export function createFlow(flow: Api.Flow) {
+  return httpPost<Api.Flow, void>('/api/flows', flow);
+}

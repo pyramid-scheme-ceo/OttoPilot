@@ -5,25 +5,33 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle, Grid, IconButton,
+  DialogTitle,
+  Grid,
+  IconButton,
   Typography
 } from "@material-ui/core";
 import {useFormStore} from "./form.store";
 import {observer} from "mobx-react";
 import {makeStyles} from "@material-ui/core/styles";
 import Add from '@material-ui/icons/Add';
+import {StepType} from "../../../models/enums";
 
 interface StepOption {
-  stepType: number;
+  stepType: StepType;
   name: string;
   description: string;
 }
 
 const stepOptions: StepOption[] = [
   {
-    stepType: 0,
+    stepType: StepType.LoadCsv,
     name: 'Load CSV',
     description: 'Fetches a CSV file and loads it as a dataset into your flow so it can be used by later steps',
+  },
+  {
+    stepType: StepType.TransformFile,
+    name: 'Transform Dataset',
+    description: 'Transforms a dataset to a new dataset with a different column arrangement',
   },
 ];
 
@@ -35,6 +43,7 @@ const useStyles = makeStyles({
     border: '1px solid #dcdcdc',
     padding: '1em',
     borderRadius: '0.5em',
+    margin: '0.5em',
   },
 })
 
