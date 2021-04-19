@@ -61,10 +61,12 @@ const StepModal = observer(() => {
                 {s.description}
               </Typography>
             </Grid>
-            <Grid container item xs={2} justify="center">
-              <IconButton onClick={() => store.addStepAndHideModal(s.stepType)}>
-                <Add />
-              </IconButton>
+            <Grid container xs={2} justify="center" alignItems="center">
+              <Grid item>
+                <IconButton onClick={() => store.addStepAndHideModal(s.stepType)}>
+                  <Add />
+                </IconButton>
+              </Grid>
             </Grid>
           </Grid>
         ))}

@@ -24,6 +24,10 @@ const FlowForm = observer(() => {
             onChange={e => store.setFlow({ ...store.flowModel, name: e.target.value })}
           />
         </Grid>
+        
+        <Grid item xs={12}>
+          {store.steps.map(s => s.stepType).join(',')}
+        </Grid>
 
         <Grid container item xs={12} justify="center">
           <Button variant="contained" color="primary" onClick={() => store.showStepModal()}>

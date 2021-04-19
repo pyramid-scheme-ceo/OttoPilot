@@ -16,7 +16,7 @@ export namespace Api {
 	export interface Step
 	{
 		name: string;
-		stepType: number;
+		stepType: import('./enums').StepType;
 		order: number;
 		serialisedParameters: string;
 	}

@@ -18,7 +18,6 @@ namespace OttoPilot.API
                 x.UseModules(true, false);
                 x.UseVisitor<CustomVisitor>();
             });
-
         }
     }
 

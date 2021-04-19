@@ -6,6 +6,7 @@
 
     <ItemGroup>
       <PackageReference Include="GenericParser" Version="1.1.6" />
+      <PackageReference Include="Reinforced.Typings" Version="1.5.9" />
     </ItemGroup>
 
 </Project>
