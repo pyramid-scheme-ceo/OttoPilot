@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using Autofac;
 using OttoPilot.Domain;
 using OttoPilot.Domain.BusinessLayer;
 using OttoPilot.Domain.BusinessLayer.FileProviders;
 using OttoPilot.Domain.BusinessLayer.Services;
 using OttoPilot.Domain.BusinessLayer.StepImplementations;
+using OttoPilot.Domain.BusinessObjects.Entities;
 using OttoPilot.Domain.BusinessObjects.StepParameters;
 using OttoPilot.Domain.Interfaces;
 using OttoPilot.Domain.Interfaces.Services;
@@ -14,6 +16,17 @@ namespace OttoPilot.IocRegistry
 {
     public class DomainModule : Module
     {
+        private readonly IDictionary<StepType, Type> _stepTypes;
+
+        public DomainModule()
+        {
+            _stepTypes = new Dictionary<StepType, Type>
+            {
+                {StepType.LoadCsv, typeof(LoadCsvStepParameters)},
+                {StepType.TransformFile, typeof(TransformDatasetStepParameters)}
+            };
+        }
+        
         protected override void Load(ContainerBuilder builder)
         {
             RegisterStepSupervisorFactory(builder);
@@ -32,17 +45,12 @@ namespace OttoPilot.IocRegistry
             builder.RegisterType<UnitOfWork>().InstancePerLifetimeScope();
         }
 
-        private static void RegisterStepSupervisorFactory(ContainerBuilder builder)
+        private void RegisterStepSupervisorFactory(ContainerBuilder builder)
         {
             builder.Register((c, p) =>
             {
                 var step = p.TypedAs<IStep>();
-                var parametersType = step.StepType switch
-                {
-                    StepType.LoadCsv => typeof(LoadCsvStepParameters),
-                    StepType.TransformFile => typeof(TransformDatasetStepParameters),
-                    _ => throw new ArgumentException("Unexpected step type")
-                };
+                var parametersType = _stepTypes[step.StepType];
 
                 var supervisorType = typeof(IStepSupervisor<>).MakeGenericType(parametersType);
 

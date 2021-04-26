@@ -10,10 +10,6 @@ namespace OttoPilot.Domain.BusinessObjects.Entities
         public int Order { get; set; }
         public string SerialisedParameters { get; set; }
         public virtual Flow Flow { get; set; }
-    }
-
-    public class Step<TParameters> : Step, IStep<TParameters>
-    {
-        public TParameters Parameters => JsonSerializer.Deserialize<TParameters>(SerialisedParameters);
+        public TParameters Parameters<TParameters>() => JsonSerializer.Deserialize<TParameters>(SerialisedParameters);
     }
 }

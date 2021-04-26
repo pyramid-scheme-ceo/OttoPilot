@@ -8,9 +8,4 @@ namespace OttoPilot.Domain.Interfaces
         int Order { get; set; }
         string SerialisedParameters { get; set; }
     }
-
-    public interface IStep<out TParameters>
-    {
-        TParameters Parameters { get; }
-    }
 }
