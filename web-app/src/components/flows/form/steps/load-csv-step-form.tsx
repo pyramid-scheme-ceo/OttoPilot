@@ -51,6 +51,7 @@ const LoadCsvStepForm = ({ order }: LoadCsvStepForm) => {
           id="file-name"
           label="Filename"
           fullWidth
+          value={fileName}
           onChange={e => updateFileName(e.target.value)}
         />
       </Grid>
@@ -59,6 +60,7 @@ const LoadCsvStepForm = ({ order }: LoadCsvStepForm) => {
           id="output-dataset-name"
           label="Output dataset name"
           fullWidth
+          value={outputDatasetName}
           onChange={e => updateOutputDatasetName(e.target.value)}
         />
       </Grid>

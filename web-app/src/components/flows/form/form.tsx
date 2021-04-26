@@ -6,8 +6,18 @@ import {observer} from "mobx-react";
 import StepModal from "./step-modal";
 import Step from './step';
 
-const FlowForm = observer(() => {
+interface FlowFormProps {
+  flowId?: number;
+}
+
+const FlowForm = observer((props: FlowFormProps) => {
   const store = useFormStore();
+  
+  React.useEffect(() => {
+    if (!!props.flowId) {
+      store.loadFlowForEdit(props.flowId);
+    }
+  }, [props.flowId]);
   
   if (store.loading) {
     return <></>;
@@ -21,6 +31,7 @@ const FlowForm = observer(() => {
             id="name"
             label="Name"
             fullWidth
+            value={store.flowModel.name}
             onChange={e => store.setFlow({ ...store.flowModel, name: e.target.value })}
           />
         </Grid>
@@ -28,6 +39,9 @@ const FlowForm = observer(() => {
           <Button variant="contained" onClick={() => store.saveCurrentFlow()}>
             Save
           </Button>
+          {!!props.flowId && <Button variant="contained" onClick={() => store.runFlow(props.flowId!)}>
+              Run
+          </Button>}
         </Grid>
         
         {store.flowModel.steps.map(step => (

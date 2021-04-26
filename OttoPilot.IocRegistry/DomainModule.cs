@@ -1,10 +1,13 @@
 ﻿using System;
 using Autofac;
+using OttoPilot.Domain;
 using OttoPilot.Domain.BusinessLayer;
 using OttoPilot.Domain.BusinessLayer.FileProviders;
+using OttoPilot.Domain.BusinessLayer.Services;
 using OttoPilot.Domain.BusinessLayer.StepImplementations;
 using OttoPilot.Domain.BusinessObjects.StepParameters;
 using OttoPilot.Domain.Interfaces;
+using OttoPilot.Domain.Interfaces.Services;
 using OttoPilot.Domain.Types;
 
 namespace OttoPilot.IocRegistry
@@ -15,6 +18,10 @@ namespace OttoPilot.IocRegistry
         {
             RegisterStepSupervisorFactory(builder);
             
+            #region Services
+            builder.RegisterType<FlowService>().As<IFlowService>();
+            #endregion
+
             #region StepRegistrations
             builder.RegisterStep<LoadCsvStepParameters, LoadCsvStepImplementation>();
             builder.RegisterStep<TransformDatasetStepParameters, TransformDatasetStepImplementation>();
@@ -22,6 +29,7 @@ namespace OttoPilot.IocRegistry
             
             builder.RegisterType<LocalFileProvider>().As<IFileProvider>();
             builder.RegisterType<DatasetPool>().As<IDatasetPool>().SingleInstance();
+            builder.RegisterType<UnitOfWork>().InstancePerLifetimeScope();
         }
 
         private static void RegisterStepSupervisorFactory(ContainerBuilder builder)

@@ -1,11 +1,12 @@
 ﻿import React from 'react';
 import {Api} from "../../../models/api-models";
-import {makeAutoObservable} from "mobx";
-import {createFlow} from "../shared/flows.service";
+import {makeAutoObservable, runInAction} from "mobx";
+import {createFlow, getFlow, runFlow} from "../shared/flows.service";
 
 export default class FormStore {
   flowModel: Api.Flow;
   stepModelHidden: boolean;
+  loading: boolean;
   nextOrder: number;
   
   constructor() {
@@ -15,13 +16,10 @@ export default class FormStore {
       steps: [],
     }
     this.stepModelHidden = true;
+    this.loading = false;
     this.nextOrder = 0;
     
     makeAutoObservable(this);
-  }
-  
-  get loading(): boolean {
-    return !this.flowModel;
   }
   
   setFlow(flow: Api.Flow) {
@@ -66,6 +64,21 @@ export default class FormStore {
   
   saveCurrentFlow() {
     createFlow(this.flowModel);
+  }
+  
+  loadFlowForEdit(flowId: number) {
+    this.loading = true;
+    
+    getFlow(flowId).then(flow => {
+      runInAction(() => {
+        this.flowModel = flow;
+        this.loading = false;
+      });
+    });
+  }
+  
+  runFlow(flowId: number) {
+    runFlow(flowId);
   }
 }
 

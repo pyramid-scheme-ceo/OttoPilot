@@ -2,6 +2,7 @@
 import { Home } from '../pages/home';
 import FlowsList from '../pages/Flows/List';
 import FlowsNew from '../pages/Flows/New';
+import FlowsEdit from '../pages/Flows/Edit';
 
 export const routes: RouteDefinition[] = [
   {
@@ -22,4 +23,10 @@ export const routes: RouteDefinition[] = [
     component: <FlowsNew />,
     exact: false,
   },
+  {
+    key: 'flows-edit',
+    path: '/flows/:id',
+    component: <FlowsEdit />,
+    exact: false,
+  }
 ];

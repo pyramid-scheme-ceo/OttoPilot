@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { getAllFlows } from "../shared/flows.service";
 import { makeStyles } from "@material-ui/core/styles";
 import { Api } from "../../../models/api-models";
+import {Button} from "@material-ui/core";
 
 const useStyles = makeStyles({
   table: {
@@ -29,6 +30,7 @@ export default function FlowsTable() {
         <TableRow>
           <TableCell>ID</TableCell>
           <TableCell align="left">Name</TableCell>
+          <TableCell>Actions</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
@@ -36,6 +38,11 @@ export default function FlowsTable() {
           <TableRow key={flow.id}>
             <TableCell component="th" scope="row">{flow.id}</TableCell>
             <TableCell component="th" align="left">{flow.name}</TableCell>
+            <TableCell component="th">
+              <Button variant="contained" color="primary" href={`/flows/${flow.id}`}>
+                Edit
+              </Button>
+            </TableCell>
           </TableRow>
         ))}
       </TableBody>

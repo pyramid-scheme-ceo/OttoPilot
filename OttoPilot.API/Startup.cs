@@ -19,7 +19,9 @@ namespace OttoPilot.API
             services.AddControllers();
             services.AddCors(options =>
             {
-                options.AddPolicy("LocalReactApp", builder => builder.WithOrigins("http://localhost:3000"));
+                options.AddPolicy("LocalReactApp", builder => 
+                    builder.WithOrigins("http://localhost:3000")
+                    .AllowAnyHeader());
             });
         }
 
@@ -40,7 +42,10 @@ namespace OttoPilot.API
             }
 
             app.UseRouting();
+            
+            #if DEBUG
             app.UseCors("LocalReactApp");
+            #endif
 
             app.UseEndpoints(endpoints =>
             {
