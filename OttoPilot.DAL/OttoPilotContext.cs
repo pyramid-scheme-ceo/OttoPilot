@@ -8,7 +8,7 @@ namespace OttoPilot.DAL
         public DbSet<Flow> Flows { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            => optionsBuilder.UseSqlite(
+            => optionsBuilder.UseLazyLoadingProxies().UseSqlite(
                 "Data Source=C:\\Sqlite\\ottopilot.db", 
                 b => b.MigrationsAssembly("OttoPilot.DAL"));
     }
