@@ -30,7 +30,7 @@ const FlowForm = observer(() => {
           </Button>
         </Grid>
         
-        {store.steps.map(step => (
+        {store.flowModel.steps.map(step => (
           <Grid item xs={12} key={step.order}>
             <Step stepType={step.stepType} order={step.order} />
           </Grid>

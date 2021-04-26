@@ -1,4 +1,5 @@
-﻿using Reinforced.Typings.Attributes;
+﻿using System.Collections.Generic;
+using Reinforced.Typings.Attributes;
 
 namespace OttoPilot.API.ApiModels
 {
@@ -7,5 +8,6 @@ namespace OttoPilot.API.ApiModels
     {
         public long Id { get; set; }
         public string Name { get; set; }
+        public List<Step> Steps { get; set; }
     }
 }

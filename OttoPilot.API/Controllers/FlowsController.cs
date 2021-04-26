@@ -36,7 +36,8 @@ namespace OttoPilot.API.Controllers
             var result = _flowRepository.All().Select(f => new ApiModels.Flow
             {
                 Id = f.Id,
-                Name = f.Name
+                Name = f.Name,
+                Steps = new List<ApiModels.Step>(),
             });
             
             return Ok(ApiResponse.Success(result));

@@ -12,6 +12,7 @@ export namespace Api {
 	{
 		id: number;
 		name: string;
+		steps: Api.Step[];
 	}
 	export interface Step
 	{

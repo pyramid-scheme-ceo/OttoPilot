@@ -9,6 +9,7 @@ namespace OttoPilot.Domain.BusinessObjects.Entities
         public StepType StepType { get; set; }
         public int Order { get; set; }
         public string SerialisedParameters { get; set; }
+        public Flow Flow { get; set; }
     }
 
     public class Step<TParameters> : Step, IStep<TParameters>

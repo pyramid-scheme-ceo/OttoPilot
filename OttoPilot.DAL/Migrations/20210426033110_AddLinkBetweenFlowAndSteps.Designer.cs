@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using OttoPilot.DAL;
 
 namespace OttoPilot.DAL.Migrations
 {
     [DbContext(typeof(OttoPilotContext))]
-    partial class OttoPilotContextModelSnapshot : ModelSnapshot
+    [Migration("20210426033110_AddLinkBetweenFlowAndSteps")]
+    partial class AddLinkBetweenFlowAndSteps
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

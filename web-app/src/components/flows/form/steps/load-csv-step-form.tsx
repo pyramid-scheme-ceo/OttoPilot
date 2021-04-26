@@ -13,8 +13,8 @@ const LoadCsvStepForm = ({ order }: LoadCsvStepForm) => {
   let initialFileName = '';
   let initialDatasetName = '';
   
-  if (store.steps[order].serialisedParameters.length > 0) {
-    const initialData = JSON.parse(store.steps[order].serialisedParameters) as Api.LoadCsvStepParameters;
+  if (store.flowModel.steps[order].serialisedParameters.length > 0) {
+    const initialData = JSON.parse(store.flowModel.steps[order].serialisedParameters) as Api.LoadCsvStepParameters;
     
     initialFileName = initialData.fileName;
     initialDatasetName = initialData.outputDatasetName;

@@ -5,7 +5,6 @@ import {createFlow} from "../shared/flows.service";
 
 export default class FormStore {
   flowModel: Api.Flow;
-  steps: Api.Step[];
   stepModelHidden: boolean;
   nextOrder: number;
   
@@ -13,8 +12,8 @@ export default class FormStore {
     this.flowModel = {
       id: 0,
       name: '',
+      steps: [],
     }
-    this.steps = [];
     this.stepModelHidden = true;
     this.nextOrder = 0;
     
@@ -38,7 +37,7 @@ export default class FormStore {
   }
   
   addStepAndHideModal(stepType: number) {
-    this.steps.push({
+    this.flowModel.steps.push({
       stepType,
       name: 'New Step',
       order: this.nextOrder,
@@ -50,23 +49,23 @@ export default class FormStore {
   }
   
   updateStep(order: number, step: Api.Step) {
-    this.steps[order] = step;
+    this.flowModel.steps[order] = step;
   }
   
   updateStepConfiguration<T>(order: number, config: T) {
-    this.steps[order] = {
-      ...this.steps[order],
+    this.flowModel.steps[order] = {
+      ...this.flowModel.steps[order],
       serialisedParameters: JSON.stringify(config),
     };
   }
   
   deleteStep(order: number) {
-    this.steps.splice(order, 1);
+    this.flowModel.steps.splice(order, 1);
     this.nextOrder--;
   }
   
   saveCurrentFlow() {
-    createFlow()
+    createFlow(this.flowModel);
   }
 }
 

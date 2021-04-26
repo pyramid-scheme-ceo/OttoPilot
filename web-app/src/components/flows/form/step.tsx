@@ -35,7 +35,7 @@ const Step = ({ stepType, order }: StepProps) => {
           <TextField
             id="name"
             label="Name"
-            onChange={e => store.updateStep(order, { ...store.steps[order], name: e.target.value })}
+            onChange={e => store.updateStep(order, { ...store.flowModel.steps[order], name: e.target.value })}
           />
         }
         subheader={
