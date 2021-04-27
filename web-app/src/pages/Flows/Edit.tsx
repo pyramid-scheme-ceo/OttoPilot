@@ -1,29 +1,24 @@
 ﻿import React from 'react';
 import FlowForm from "../../components/flows/form/form";
-import {makeStyles} from "@material-ui/core/styles";
 import { useParams } from 'react-router-dom';
-
-const useStyles = makeStyles({
-  formContainer: {
-    width: '50%',
-  },
-});
+import {Grid} from "@material-ui/core";
 
 interface PageParams {
   id: string;
 }
 
 export default function Edit(): JSX.Element {
-  const classes = useStyles();
   const { id } = useParams<PageParams>();
 
   return (
-    <>
-      <h1>Editing flow</h1>
+    <Grid container>
+      <Grid item xs={12}>
+        <h1>Editing flow</h1>
+      </Grid>
 
-      <div className={classes.formContainer}>
+      <Grid item xs={8}>
         <FlowForm flowId={parseInt(id)} />
-      </div>
-    </>
+      </Grid>
+    </Grid>
 );
 }

@@ -1,23 +1,17 @@
 ﻿import React from 'react';
 import FlowForm from "../../components/flows/form/form";
-import {makeStyles} from "@material-ui/core/styles";
-
-const useStyles = makeStyles({
-  formContainer: {
-    width: '50%',
-  },
-});
+import {Grid} from "@material-ui/core";
 
 export default function New(): JSX.Element {
-  const classes = useStyles();
-  
   return (
-    <>
-      <h1>New flow</h1>
-      
-      <div className={classes.formContainer}>
+    <Grid container>
+      <Grid item xs={12}>
+        <h1>Editing flow</h1>
+      </Grid>
+
+      <Grid item xs={8}>
         <FlowForm />
-      </div>
-    </>
+      </Grid>
+    </Grid>
   );
 }

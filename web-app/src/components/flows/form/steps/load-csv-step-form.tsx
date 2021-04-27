@@ -41,11 +41,6 @@ const LoadCsvStepForm = ({ order }: LoadCsvStepForm) => {
   
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12}>
-        <Typography>
-          Step configuration
-        </Typography>
-      </Grid>
       <Grid item xs={12} md={6}>
         <TextField
           id="file-name"
