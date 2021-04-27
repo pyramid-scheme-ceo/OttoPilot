@@ -21,7 +21,8 @@ namespace OttoPilot.API
             {
                 options.AddPolicy("LocalReactApp", builder => 
                     builder.WithOrigins("http://localhost:3000")
-                    .AllowAnyHeader());
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
             });
         }
 

@@ -17,6 +17,7 @@ namespace OttoPilot.Domain.BusinessLayer
             _stepImplementation = stepImplementation;
         }
 
-        public Task<StepResult> Run(CancellationToken cancel) => _stepImplementation.Execute(_step.Parameters<TParameters>(), cancel);
+        public Task<StepResult> Run(CancellationToken cancel) =>
+            _stepImplementation.Execute(_step.Parameters<TParameters>(), cancel);
     }
 }

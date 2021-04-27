@@ -12,21 +12,21 @@ export const routes: RouteDefinition[] = [
     exact: true,
   },
   {
-    key: 'flows-list',
-    path: '/flows',
-    component: <FlowsList />,
-    exact: true,
-  },
-  {
     key: 'flows-new',
     path: '/flows/new',
     component: <FlowsNew />,
-    exact: false,
+    exact: true,
   },
   {
     key: 'flows-edit',
     path: '/flows/:id',
     component: <FlowsEdit />,
-    exact: false,
-  }
+    exact: true,
+  },
+  {
+    key: 'flows-list',
+    path: '/flows',
+    component: <FlowsList />,
+    exact: true,
+  },
 ];

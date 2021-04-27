@@ -4,6 +4,7 @@ import {Card, CardActionArea, CardContent, CardHeader, IconButton, TextField, Ty
 import {useFormStore} from "./form.store";
 import Delete from '@material-ui/icons/Delete';
 import LoadCsvStepForm from "./steps/load-csv-step-form";
+import GenerateCsvStepForm from "./steps/generate-csv-step-form";
 
 interface StepProps {
   stepType: StepType;
@@ -14,6 +15,7 @@ const getStepTitle = (stepType: StepType): string => {
   switch (stepType) {
     case StepType.LoadCsv: return 'Load CSV';
     case StepType.TransformFile: return 'Transform Dataset';
+    case StepType.GenerateCsv: return 'Generate CSV';
     default: return '';
   }
 };
@@ -21,6 +23,7 @@ const getStepTitle = (stepType: StepType): string => {
 const getStepForm = (stepType: StepType, order: number): JSX.Element => {
   switch (stepType) {
     case StepType.LoadCsv: return <LoadCsvStepForm order={order} />;
+    case StepType.GenerateCsv: return <GenerateCsvStepForm order={order} />;
     default: throw new Error("Unexpected step type");
   }
 };
@@ -33,7 +36,7 @@ const Step = ({ stepType, order }: StepProps) => {
       <CardHeader
         title={
           <TextField
-            id="name"
+            id={`step-name-${order}`}
             label="Name"
             value={store.flowModel.steps[order].name}
             onChange={e => store.updateStep(order, { ...store.flowModel.steps[order], name: e.target.value })}

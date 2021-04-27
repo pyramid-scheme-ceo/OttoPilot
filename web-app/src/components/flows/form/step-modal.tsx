@@ -33,6 +33,11 @@ const stepOptions: StepOption[] = [
     name: 'Transform Dataset',
     description: 'Transforms a dataset to a new dataset with a different column arrangement',
   },
+  {
+    stepType: StepType.GenerateCsv,
+    name: 'Generate CSV',
+    description: 'Exports a dataset into a CSV file',
+  },
 ];
 
 const useStyles = makeStyles({
@@ -70,7 +75,7 @@ const StepModal = observer(() => {
                 {s.description}
               </Typography>
             </Grid>
-            <Grid container xs={2} justify="center" alignItems="center">
+            <Grid container item xs={2} justify="center" alignItems="center">
               <Grid item>
                 <IconButton onClick={() => store.addStepAndHideModal(s.stepType)}>
                   <Add />

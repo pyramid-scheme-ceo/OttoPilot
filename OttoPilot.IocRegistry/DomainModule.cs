@@ -6,7 +6,6 @@ using OttoPilot.Domain.BusinessLayer;
 using OttoPilot.Domain.BusinessLayer.FileProviders;
 using OttoPilot.Domain.BusinessLayer.Services;
 using OttoPilot.Domain.BusinessLayer.StepImplementations;
-using OttoPilot.Domain.BusinessObjects.Entities;
 using OttoPilot.Domain.BusinessObjects.StepParameters;
 using OttoPilot.Domain.Interfaces;
 using OttoPilot.Domain.Interfaces.Services;
@@ -23,7 +22,8 @@ namespace OttoPilot.IocRegistry
             _stepTypes = new Dictionary<StepType, Type>
             {
                 {StepType.LoadCsv, typeof(LoadCsvStepParameters)},
-                {StepType.TransformFile, typeof(TransformDatasetStepParameters)}
+                {StepType.TransformFile, typeof(TransformDatasetStepParameters)},
+                {StepType.GenerateCsv, typeof(GenerateCsvStepParameters)},
             };
         }
         
@@ -38,6 +38,7 @@ namespace OttoPilot.IocRegistry
             #region StepRegistrations
             builder.RegisterStep<LoadCsvStepParameters, LoadCsvStepImplementation>();
             builder.RegisterStep<TransformDatasetStepParameters, TransformDatasetStepImplementation>();
+            builder.RegisterStep<GenerateCsvStepParameters, GenerateCsvStepImplementation>();
             #endregion
             
             builder.RegisterType<LocalFileProvider>().As<IFileProvider>();

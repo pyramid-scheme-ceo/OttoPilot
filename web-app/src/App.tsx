@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch as RouterSwitch } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import {SharedToolbar, SideNavigation} from "./components/navigation";
-import { CssBaseline } from "@material-ui/core";
+import {CssBaseline, Switch} from "@material-ui/core";
 import { routes, sideNavigationLinks } from "./config";
 import SharedBreadcrumbs from "./components/navigation/shared-breadcrumbs";
 
@@ -32,11 +32,13 @@ function App() {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <SharedBreadcrumbs />
-          {routes.map(route => (
-            <Route key={route.key} path={route.path} exact={route.exact}>
-              {route.component}
-            </Route>
-          ))}
+          <RouterSwitch>
+            {routes.map(route => (
+              <Route key={route.key} path={route.path} exact={route.exact}>
+                {route.component}
+              </Route>
+            ))}
+          </RouterSwitch>
         </main>
       </div>
     </Router>

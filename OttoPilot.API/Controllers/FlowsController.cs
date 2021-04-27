@@ -69,6 +69,11 @@ namespace OttoPilot.API.Controllers
         {
             var flow = _flowRepository.All().Include(f => f.Steps).Single(f => f.Id == flowId);
 
+            if (flow == null)
+            {
+                return NotFound();
+            }
+
             var result = new ApiModels.Flow
             {
                 Id = flow.Id,
@@ -84,6 +89,30 @@ namespace OttoPilot.API.Controllers
             
             return Ok(ApiResponse.Success(result));
         }
+
+        [HttpPut("{flowId:long}")]
+        public IActionResult Update(long flowId, ApiModels.Flow flowModel)
+        {
+            var flow = _flowRepository.GetById(flowId);
+
+            if (flow == null)
+            {
+                return NotFound();
+            }
+
+            flow.Name = flowModel.Name;
+            flow.Steps.Clear();
+            flow.Steps = flowModel.Steps.Select(s => new Step
+            {
+                StepType = s.StepType,
+                Order = s.Order,
+                SerialisedParameters = s.SerialisedParameters,
+            }).ToList();
+            
+            _unitOfWork.Complete();
+
+            return Ok(ApiResponse.Success());
+        }
         
         [HttpPost("{flowId:long}/run")]
         public async Task<IActionResult> RunFlow(long flowId, CancellationToken cancel)
@@ -91,58 +120,6 @@ namespace OttoPilot.API.Controllers
             await _flowService.RunFlow(flowId, cancel);
 
             return Ok();
-
-            // var steps = new List<Step>
-            // {
-            //     new Step<LoadCsvStepParameters>
-            //     {
-            //         Order = 1,
-            //         StepType = StepType.LoadCsv,
-            //         SerialisedParameters = JsonSerializer.Serialize(new LoadCsvStepParameters
-            //         {
-            //             FileName = @"C:\Users\matta\Documents\Test.csv",
-            //             OutputDatasetName = "TestDataset"
-            //         })
-            //     },
-            //     new Step<TransformDatasetStepParameters>
-            //     {
-            //         Order = 2,
-            //         StepType = StepType.TransformFile,
-            //         SerialisedParameters = JsonSerializer.Serialize(new TransformDatasetStepParameters
-            //         {
-            //             InputDatasetName = "TestDataset",
-            //             OutputDatasetName = "TransformedDataset",
-            //             ColumnMappings = new List<ColumnMapping>
-            //             {
-            //                 new ColumnMapping
-            //                 {
-            //                     SourceColumnName = "LastName",
-            //                     DestinationColumnName = "Surname",
-            //                 },
-            //             },
-            //         })
-            //     }
-            // };
-            //
-            // foreach (var step in steps)
-            // {
-            //     try
-            //     {
-            //         var supervisor = _stepSupervisorFactory(step);
-            //         var result = await supervisor.Run(cancel);
-            //         var x = _datasetPool.GetDataSet("TestDataset");
-            //     }
-            //     catch (Exception e)
-            //     {
-            //         Console.WriteLine(e);
-            //         throw;
-            //     }
-            // }
-            //
-            // var ds1 = _datasetPool.GetDataSet("TestDataset");
-            // var ds2 = _datasetPool.GetDataSet("TransformedDataset");
-            //
-            // return Ok("Flow complete");
         }
     }
 }

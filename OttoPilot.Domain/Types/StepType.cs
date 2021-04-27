@@ -5,7 +5,8 @@ namespace OttoPilot.Domain.Types
     [TsEnum]
     public enum StepType
     {
-        LoadCsv,
-        TransformFile,
+        LoadCsv = 0,
+        TransformFile = 1,
+        GenerateCsv = 2,
     }
 }

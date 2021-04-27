@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import {Api} from "../../../models/api-models";
 import {makeAutoObservable, runInAction} from "mobx";
-import {createFlow, getFlow, runFlow} from "../shared/flows.service";
+import {createFlow, getFlow, runFlow, updateFlow} from "../shared/flows.service";
 
 export default class FormStore {
   flowModel: Api.Flow;
@@ -63,7 +63,11 @@ export default class FormStore {
   }
   
   saveCurrentFlow() {
-    createFlow(this.flowModel);
+    if (this.flowModel.id > 0) {
+      updateFlow(this.flowModel);
+    } else {
+      createFlow(this.flowModel); 
+    }
   }
   
   loadFlowForEdit(flowId: number) {
@@ -73,6 +77,7 @@ export default class FormStore {
       runInAction(() => {
         this.flowModel = flow;
         this.loading = false;
+        this.nextOrder = flow.steps.length;
       });
     });
   }

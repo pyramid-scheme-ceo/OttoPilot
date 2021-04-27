@@ -1,4 +1,4 @@
-﻿import {httpGet, httpPost} from "../../../helpers/base-service";
+﻿import {httpGet, httpPost, httpPut} from "../../../helpers/base-service";
 import { Api } from "../../../models/api-models";
 
 export function getAllFlows(): Promise<Api.Flow[]> {
@@ -15,4 +15,8 @@ export function createFlow(flow: Api.Flow) {
 
 export function runFlow(flowId: number) {
   return httpPost<{}, void>(`/api/flows/${flowId}/run`, {});
+}
+
+export function updateFlow(flow: Api.Flow) {
+  return httpPut<Api.Flow, void>(`/api/flows/${flow.id}`, flow);
 }

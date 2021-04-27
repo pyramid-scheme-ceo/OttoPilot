@@ -4,5 +4,6 @@
 
 export enum StepType { 
 	LoadCsv = 0, 
-	TransformFile = 1
+	TransformFile = 1, 
+	GenerateCsv = 2
 }

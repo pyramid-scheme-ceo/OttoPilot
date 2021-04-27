@@ -21,6 +21,11 @@ export namespace Api {
 		order: number;
 		serialisedParameters: string;
 	}
+	export interface GenerateCsvStepParameters
+	{
+		datasetName: string;
+		fileName: string;
+	}
 	export interface LoadCsvStepParameters
 	{
 		fileName: string;

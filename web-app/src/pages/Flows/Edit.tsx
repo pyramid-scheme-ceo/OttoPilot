@@ -19,7 +19,7 @@ export default function Edit(): JSX.Element {
 
   return (
     <>
-      <h1>New flow</h1>
+      <h1>Editing flow</h1>
 
       <div className={classes.formContainer}>
         <FlowForm flowId={parseInt(id)} />

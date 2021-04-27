@@ -28,7 +28,7 @@ const FlowForm = observer((props: FlowFormProps) => {
       <Grid container spacing={3}>
         <Grid item xs={8}>
           <TextField
-            id="name"
+            id="flow-name"
             label="Name"
             fullWidth
             value={store.flowModel.name}

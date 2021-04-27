@@ -18,3 +18,7 @@ export function httpGet<TR>(url: string, unwrapApiResponse: boolean = true): Pro
 export function httpPost<T, TR>(url: string, data: T): Promise<TR> {
   return axiosInstance.post<T, Api.ApiResponse<TR>>(url, data).then(result => result.data);
 }
+
+export function httpPut<T, TR>(url: string, data: T): Promise<TR> {
+  return axiosInstance.put<T, Api.ApiResponse<TR>>(url, data).then(result => result.data);
+}
