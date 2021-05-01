@@ -5,6 +5,9 @@ import {useFormStore} from "./form.store";
 import {observer} from "mobx-react";
 import StepModal from "./step-modal";
 import Step from './step';
+import PlayArrow from '@material-ui/icons/PlayArrow';
+import Check from '@material-ui/icons/Check';
+import Delete from '@material-ui/icons/Delete';
 
 interface FlowFormProps {
   flowId?: number;
@@ -36,12 +39,33 @@ const FlowForm = observer((props: FlowFormProps) => {
           />
         </Grid>
         <Grid container item xs={4} justify="flex-end">
-          <Button variant="contained" onClick={() => store.saveCurrentFlow()}>
+          {!!props.flowId && (
+            <Button
+              variant="contained"
+              startIcon={<PlayArrow />}
+              style={{ margin: '0 0.5em' }}
+              onClick={() => store.runFlow(props.flowId!)}>
+                Run
+            </Button>
+          )}
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<Check />}
+            style={{ margin: '0 0.5em' }}
+            onClick={() => store.saveCurrentFlow()}>
             Save
           </Button>
-          {!!props.flowId && <Button variant="contained" onClick={() => store.runFlow(props.flowId!)}>
-              Run
-          </Button>}
+          {!!props.flowId && (
+            <Button
+              variant="contained"
+              color="secondary"
+              style={{ margin: '0 0.5em' }}
+              startIcon={<Delete />}
+            >
+              Delete
+            </Button>
+          )}
         </Grid>
         
         {store.flowModel.steps.map(step => (

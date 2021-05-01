@@ -18,11 +18,7 @@ const SharedToolbar = (): JSX.Element => {
   
   return (
     <AppBar position="fixed" className={classes.appBar}>
-      <Toolbar>
-        <Typography variant="h6" noWrap>
-          Permanent drawer
-        </Typography>
-      </Toolbar>
+      <Toolbar />
     </AppBar>
   )
 };
