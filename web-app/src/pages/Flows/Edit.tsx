@@ -16,7 +16,7 @@ export default function Edit(): JSX.Element {
         <h1>Editing flow</h1>
       </Grid>
 
-      <Grid item xs={8}>
+      <Grid item xs={12} lg={8}>
         <FlowForm flowId={parseInt(id)} />
       </Grid>
     </Grid>

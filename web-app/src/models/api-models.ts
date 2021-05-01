@@ -8,6 +8,10 @@ export namespace Api {
     message: string;
     data: T
   }
+	export interface CreateResponse
+	{
+		id: number;
+	}
 	export interface Flow
 	{
 		id: number;

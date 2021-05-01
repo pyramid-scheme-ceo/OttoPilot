@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -65,7 +64,7 @@ namespace OttoPilot.API.Controllers
             _flowRepository.Insert(flow);
             _unitOfWork.Complete();
             
-            return Ok(ApiResponse.Success());
+            return Ok(ApiResponse.Success(new CreateResponse(flow.Id)));
         }
 
         [HttpGet("{flowId:long}")]
@@ -97,9 +96,13 @@ namespace OttoPilot.API.Controllers
         [HttpPut("{flowId:long}")]
         public IActionResult Update(long flowId, ApiModels.Flow flowModel)
         {
-            var flow = _flowRepository.GetById(flowId);
-
-            if (flow == null)
+            Flow flow;
+            
+            try
+            {
+                flow = _flowRepository.GetById(flowId);
+            }
+            catch (NotFoundException<Flow>)
             {
                 return NotFound();
             }
@@ -129,10 +132,6 @@ namespace OttoPilot.API.Controllers
                 return Ok(ApiResponse.Success());
             }
             catch (NotFoundException<Flow>)
-            {
-                return NotFound();
-            }
-            catch (Exception e)
             {
                 return NotFound();
             }

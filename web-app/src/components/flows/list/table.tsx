@@ -1,14 +1,13 @@
 ﻿import React from 'react';
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import { getAllFlows } from "../shared/flows.service";
 import { makeStyles } from "@material-ui/core/styles";
-import { Api } from "../../../models/api-models";
 import {Button} from "@material-ui/core";
+import {observer} from "mobx-react";
+import {useFlowListStore} from "../../../hooks/use-stores";
 
 const useStyles = makeStyles({
   table: {
@@ -16,12 +15,12 @@ const useStyles = makeStyles({
   },
 });
 
-export default function FlowsTable() {
+const FlowsTable = observer(() => {
   const classes = useStyles();
-  const [flows, setFlows] = React.useState<Api.Flow[]>([]);
+  const store = useFlowListStore();
 
   React.useEffect(() => {
-    getAllFlows().then(result => setFlows(result));
+    store.fetchFlows()
   }, []);
   
   return (
@@ -30,15 +29,15 @@ export default function FlowsTable() {
         <TableRow>
           <TableCell>ID</TableCell>
           <TableCell align="left">Name</TableCell>
-          <TableCell>Actions</TableCell>
+          <TableCell align="right">Actions</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>
-        {flows.map((flow) => (
+        {store.flows.map((flow) => (
           <TableRow key={flow.id}>
             <TableCell component="th" scope="row">{flow.id}</TableCell>
             <TableCell component="th" align="left">{flow.name}</TableCell>
-            <TableCell component="th">
+            <TableCell component="th" align="right">
               <Button variant="contained" color="primary" href={`/flows/${flow.id}`}>
                 Edit
               </Button>
@@ -48,4 +47,6 @@ export default function FlowsTable() {
       </TableBody>
     </Table>
   );
-}
+});
+
+export default FlowsTable;

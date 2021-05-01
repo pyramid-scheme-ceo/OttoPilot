@@ -15,7 +15,17 @@ namespace OttoPilot.DAL.Repositories
             _dbSet = context.Set<TEntity>();
         }
 
-        public TEntity GetById(long id) => _dbSet.Find(id);
+        public TEntity GetById(long id)
+        {
+            var entity = _dbSet.Find(id);
+
+            if (entity == null)
+            {
+                throw new NotFoundException<TEntity>(id);
+            }
+
+            return entity;
+        }
 
         public IQueryable<TEntity> All() => _dbSet;
 

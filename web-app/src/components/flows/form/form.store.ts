@@ -66,7 +66,11 @@ export default class FormStore {
     if (this.flowModel.id > 0) {
       updateFlow(this.flowModel);
     } else {
-      createFlow(this.flowModel); 
+      createFlow(this.flowModel)
+        .then(response => {
+          if (response.successful) {
+          }
+        });
     }
   }
   
@@ -75,9 +79,9 @@ export default class FormStore {
     
     getFlow(flowId).then(flow => {
       runInAction(() => {
-        this.flowModel = flow;
+        this.flowModel = flow.data;
         this.loading = false;
-        this.nextOrder = flow.steps.length;
+        this.nextOrder = flow.data.steps.length;
       });
     });
   }

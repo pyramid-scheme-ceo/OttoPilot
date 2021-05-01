@@ -8,12 +8,14 @@ import Step from './step';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Check from '@material-ui/icons/Check';
 import Delete from '@material-ui/icons/Delete';
+import {useHistory} from "react-router-dom";
 
 interface FlowFormProps {
   flowId?: number;
 }
 
 const FlowForm = observer((props: FlowFormProps) => {
+  const history = useHistory();
   const store = useFormStore();
   
   React.useEffect(() => {
@@ -29,7 +31,7 @@ const FlowForm = observer((props: FlowFormProps) => {
   return (
     <>
       <Grid container spacing={3}>
-        <Grid item xs={8}>
+        <Grid item xs={12} xl={8}>
           <TextField
             id="flow-name"
             label="Name"
@@ -38,7 +40,7 @@ const FlowForm = observer((props: FlowFormProps) => {
             onChange={e => store.setFlow({ ...store.flowModel, name: e.target.value })}
           />
         </Grid>
-        <Grid container item xs={4} justify="flex-end">
+        <Grid container item xs={12} xl={4} justify="flex-end">
           {!!props.flowId && (
             <Button
               variant="contained"

@@ -11,8 +11,8 @@ const axiosInstance = axios.create({
   },
 });
 
-export function httpGet<TR>(url: string, unwrapApiResponse: boolean = true): Promise<TR> {
-  return axiosInstance.get<Api.ApiResponse<TR>>(url).then(result => result.data.data);
+export function httpGet<TR>(url: string): Promise<Api.ApiResponse<TR>> {
+  return axiosInstance.get<Api.ApiResponse<TR>>(url).then(result => result.data);
 }
 
 export function httpPost<T, TR>(url: string, data: T): Promise<TR> {
