@@ -3,7 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import {makeStyles} from "@material-ui/core/styles";
 import {LinearProgress} from "@material-ui/core";
-import {useUiStore} from "../../hooks/use-stores";
+import {useRootStore} from "../../hooks/use-stores";
 import {observer} from "mobx-react";
 
 const drawerWidth = 240;
@@ -17,12 +17,12 @@ const useStyles = makeStyles((theme) => ({
 
 const SharedToolbar = observer((): JSX.Element => {
   const classes = useStyles();
-  const uiStore = useUiStore();
+  const store = useRootStore();
   
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar />
-      {uiStore.loading && <LinearProgress />}
+      {store.loading && <LinearProgress />}
     </AppBar>
   )
 });

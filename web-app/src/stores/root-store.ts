@@ -1,15 +1,21 @@
-﻿import UiStore from "../ui/ui-store";
-import { Api } from "../../models/api-models";
+﻿import { Api } from "../models/api-models";
+import {makeAutoObservable} from "mobx";
 
 class RootStore {
-  uiStore: UiStore;
+  loading: boolean;
   
-  constructor(uiStore: UiStore) {
-    this.uiStore = uiStore;
+  constructor() {
+    makeAutoObservable(this);
+    
+    this.loading = false;
+  }
+  
+  setLoading(loading: boolean): void {
+    this.loading = loading;
   }
 
   executeServiceRequest<TResponse>(action: () => Promise<Api.ApiResponse<TResponse>>): Promise<void | TResponse> {
-    this.uiStore.setLoading(true);
+    this.setLoading(true);
     
     return action()
       .then(result => {
@@ -22,7 +28,7 @@ class RootStore {
       .catch(err => {
         console.error(err.message || 'Unexpected error');
       })
-      .finally(() => this.uiStore.setLoading(false));
+      .finally(() => this.setLoading(false));
   }
 }
 

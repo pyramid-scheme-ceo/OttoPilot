@@ -8,14 +8,12 @@ import Step from './step';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Check from '@material-ui/icons/Check';
 import Delete from '@material-ui/icons/Delete';
-import {useHistory} from "react-router-dom";
 
 interface FlowFormProps {
   flowId?: number;
 }
 
 const FlowForm = observer((props: FlowFormProps) => {
-  const history = useHistory();
   const store = useFormStore();
   
   React.useEffect(() => {

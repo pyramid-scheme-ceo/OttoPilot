@@ -1,7 +1,7 @@
 ﻿import RootStore from "./root-store";
 import {makeAutoObservable, runInAction} from "mobx";
-import { Api } from "../../models/api-models";
-import {getFlow} from "../../components/flows/shared/flows.service";
+import { Api } from "../models/api-models";
+import {getFlow} from "../components/flows/shared/flows.service";
 
 const defaultFlow: Api.Flow = {
   id: 0,

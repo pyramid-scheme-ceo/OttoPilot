@@ -1,7 +1,7 @@
 ﻿import RootStore from "./root-store";
-import { Api } from "../../models/api-models";
+import { Api } from "../models/api-models";
 import { makeAutoObservable, runInAction } from "mobx";
-import { getAllFlows } from "../../components/flows/shared/flows.service";
+import { getAllFlows } from "../components/flows/shared/flows.service";
 
 export default class FlowListStore {
   rootStore: RootStore
