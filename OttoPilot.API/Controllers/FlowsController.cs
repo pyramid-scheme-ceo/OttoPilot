@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OttoPilot.API.ApiModels;
 using OttoPilot.Domain;
+using OttoPilot.Domain.Exceptions;
 using OttoPilot.Domain.Interfaces;
 using OttoPilot.Domain.Interfaces.Services;
 using Flow = OttoPilot.Domain.BusinessObjects.Entities.Flow;
@@ -30,6 +32,8 @@ namespace OttoPilot.API.Controllers
             _flowService = flowService;
             _unitOfWork = unitOfWork;
         }
+        
+        #region CRUD
 
         [HttpGet]
         public IActionResult Index()
@@ -113,6 +117,28 @@ namespace OttoPilot.API.Controllers
 
             return Ok(ApiResponse.Success());
         }
+
+        [HttpDelete("{flowId:long}")]
+        public IActionResult Delete(long flowId)
+        {
+            try
+            {
+                _flowRepository.Delete(flowId);
+                _unitOfWork.Complete();
+
+                return Ok(ApiResponse.Success());
+            }
+            catch (NotFoundException<Flow>)
+            {
+                return NotFound();
+            }
+            catch (Exception e)
+            {
+                return NotFound();
+            }
+        }
+        
+        #endregion
         
         [HttpPost("{flowId:long}/run")]
         public async Task<IActionResult> RunFlow(long flowId, CancellationToken cancel)

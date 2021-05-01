@@ -1,7 +1,7 @@
 ﻿import React from 'react';
 import {Api} from "../../../models/api-models";
 import {makeAutoObservable, runInAction} from "mobx";
-import {createFlow, getFlow, runFlow, updateFlow} from "../shared/flows.service";
+import {createFlow, deleteFlow, getFlow, runFlow, updateFlow} from "../shared/flows.service";
 
 export default class FormStore {
   flowModel: Api.Flow;
@@ -84,6 +84,10 @@ export default class FormStore {
   
   runFlow(flowId: number) {
     runFlow(flowId);
+  }
+  
+  deleteFlow(flowId: number) {
+    deleteFlow(flowId);
   }
 }
 

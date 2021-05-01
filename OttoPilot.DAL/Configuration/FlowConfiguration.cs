@@ -8,7 +8,10 @@ namespace OttoPilot.DAL.Configuration
     {
         public void Configure(EntityTypeBuilder<Flow> builder)
         {
-            builder.HasMany(f => f.Steps).WithOne(s => s.Flow);
+            builder
+                .HasMany(f => f.Steps)
+                .WithOne(s => s.Flow)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

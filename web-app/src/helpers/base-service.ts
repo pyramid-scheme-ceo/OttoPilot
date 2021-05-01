@@ -1,6 +1,6 @@
 ﻿import axios from 'axios';
 import dotenv from 'dotenv';
-import {Api} from "../models/api-models";
+import { Api } from "../models/api-models";
 
 dotenv.config();
 
@@ -21,4 +21,8 @@ export function httpPost<T, TR>(url: string, data: T): Promise<TR> {
 
 export function httpPut<T, TR>(url: string, data: T): Promise<TR> {
   return axiosInstance.put<T, Api.ApiResponse<TR>>(url, data).then(result => result.data);
+}
+
+export function httpDelete<TR>(url: string): Promise<TR> {
+  return axiosInstance.delete<TR>(url).then(result => result.data);
 }

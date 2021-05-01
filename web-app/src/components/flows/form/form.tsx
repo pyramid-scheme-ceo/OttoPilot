@@ -62,6 +62,7 @@ const FlowForm = observer((props: FlowFormProps) => {
               color="secondary"
               style={{ margin: '0 0.5em' }}
               startIcon={<Delete />}
+              onClick={() => store.deleteFlow(props.flowId!)}
             >
               Delete
             </Button>
