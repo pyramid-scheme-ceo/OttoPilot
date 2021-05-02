@@ -15,14 +15,14 @@ export function httpGet<TR>(url: string): Promise<Api.ApiResponse<TR>> {
   return axiosInstance.get<Api.ApiResponse<TR>>(url).then(result => result.data);
 }
 
-export function httpPost<T, TR>(url: string, data: T): Promise<TR> {
-  return axiosInstance.post<T, Api.ApiResponse<TR>>(url, data).then(result => result.data);
+export function httpPost<T, TR>(url: string, data: T): Promise<Api.ApiResponse<TR>> {
+  return axiosInstance.post<T, Api.ApiResponse<TR>>(url, data);
 }
 
-export function httpPut<T, TR>(url: string, data: T): Promise<TR> {
-  return axiosInstance.put<T, Api.ApiResponse<TR>>(url, data).then(result => result.data);
+export function httpPut<T, TR>(url: string, data: T): Promise<Api.ApiResponse<TR>> {
+  return axiosInstance.put<T, Api.ApiResponse<TR>>(url, data);
 }
 
-export function httpDelete<TR>(url: string): Promise<TR> {
-  return axiosInstance.delete<TR>(url).then(result => result.data);
+export function httpDelete<TR>(url: string): Promise<Api.ApiResponse<TR>> {
+  return axiosInstance.delete<{}, Api.ApiResponse<TR>>(url);
 }

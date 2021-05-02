@@ -11,18 +11,18 @@ export function getFlow(flowId: number): Promise<Api.ApiResponse<Api.Flow>> {
   return httpGet<Api.Flow>(`${baseUrl}/${flowId}`);
 }
 
-export function createFlow(flow: Api.Flow) {
-  return httpPost<Api.Flow, Api.ApiResponse<Api.CreateResponse>>(baseUrl, flow);
+export function createFlow(flow: Api.Flow): Promise<Api.ApiResponse<Api.CreateResponse>> {
+  return httpPost<Api.Flow, Api.CreateResponse>(baseUrl, flow);
 }
 
 export function runFlow(flowId: number) {
-  return httpPost<{}, Api.ApiResponse>(`${baseUrl}/${flowId}/run`, {});
+  return httpPost<{}, void>(`${baseUrl}/${flowId}/run`, {});
 }
 
 export function updateFlow(flow: Api.Flow) {
-  return httpPut<Api.Flow, Api.ApiResponse>(`${baseUrl}/${flow.id}`, flow);
+  return httpPut<Api.Flow, void>(`${baseUrl}/${flow.id}`, flow);
 }
 
 export function deleteFlow(flowId: number) {
-  return httpDelete<Api.ApiResponse>(`${baseUrl}/${flowId}`);
+  return httpDelete<void>(`${baseUrl}/${flowId}`);
 }

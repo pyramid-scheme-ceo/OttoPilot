@@ -1,30 +1,28 @@
 ﻿import React from 'react';
 import {Button, Grid, TextField} from "@material-ui/core";
 import Add from "@material-ui/icons/Add";
-import {useFormStore} from "./form.store";
 import {observer} from "mobx-react";
 import StepModal from "./step-modal";
 import Step from './step';
 import PlayArrow from '@material-ui/icons/PlayArrow';
 import Check from '@material-ui/icons/Check';
 import Delete from '@material-ui/icons/Delete';
+import {useFlowFormStore} from "../../../hooks/use-stores";
+import { useHistory } from 'react-router-dom';
 
 interface FlowFormProps {
   flowId?: number;
 }
 
 const FlowForm = observer((props: FlowFormProps) => {
-  const store = useFormStore();
+  const history = useHistory();
+  const store = useFlowFormStore();
   
   React.useEffect(() => {
     if (!!props.flowId) {
-      store.loadFlowForEdit(props.flowId);
+      store.fetchFlow(props.flowId);
     }
   }, [props.flowId]);
-  
-  if (store.loading) {
-    return <></>;
-  }
   
   return (
     <>
@@ -34,8 +32,8 @@ const FlowForm = observer((props: FlowFormProps) => {
             id="flow-name"
             label="Name"
             fullWidth
-            value={store.flowModel.name}
-            onChange={e => store.setFlow({ ...store.flowModel, name: e.target.value })}
+            value={store.flow.name}
+            onChange={e => store.setFlow({ ...store.flow, name: e.target.value })}
           />
         </Grid>
         <Grid container item xs={12} xl={4} justify="flex-end">
@@ -44,7 +42,7 @@ const FlowForm = observer((props: FlowFormProps) => {
               variant="contained"
               startIcon={<PlayArrow />}
               style={{ margin: '0 0.5em' }}
-              onClick={() => store.runFlow(props.flowId!)}>
+              onClick={() => store.startFlowRun()}>
                 Run
             </Button>
           )}
@@ -53,7 +51,7 @@ const FlowForm = observer((props: FlowFormProps) => {
             color="primary"
             startIcon={<Check />}
             style={{ margin: '0 0.5em' }}
-            onClick={() => store.saveCurrentFlow()}>
+            onClick={() => store.saveFlow(id => history.push(`/flows/${id}`))}>
             Save
           </Button>
           {!!props.flowId && (
@@ -62,21 +60,21 @@ const FlowForm = observer((props: FlowFormProps) => {
               color="secondary"
               style={{ margin: '0 0.5em' }}
               startIcon={<Delete />}
-              onClick={() => store.deleteFlow(props.flowId!)}
+              onClick={() => store.deleteFlow()}
             >
               Delete
             </Button>
           )}
         </Grid>
         
-        {store.flowModel.steps.map(step => (
+        {store.flow.steps.map(step => (
           <Grid item xs={12} key={step.order}>
             <Step stepType={step.stepType} order={step.order} />
           </Grid>
         ))}
 
         <Grid container item xs={12} justify="center">
-          <Button variant="contained" color="primary" onClick={() => store.showStepModal()}>
+          <Button variant="contained" color="primary" onClick={() => store.showAddStepModal()}>
             Add step
             <Add />
           </Button>
