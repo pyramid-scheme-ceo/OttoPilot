@@ -36,13 +36,11 @@ namespace OttoPilot.Domain.UnitTests.BusinessLayer.StepImplementations
                 PrimaryDatasetName = TestPrimaryDatasetName,
                 ComparisonDatasetName = TestComparisonDatasetName,
                 OutputDatasetName = TestOutputDatasetName,
-                ComparisonColumns = new []
+                ComparisonColumns = new[]
                 {
-                    new ColumnMapping
-                    {
-                        SourceColumnName = "FirstName",
-                        DestinationColumnName = "FirstName",
-                    }
+                    new ColumnMapping("FirstName", "FirstName"),
+                    new ColumnMapping("LastName", "Surname"),
+                    new ColumnMapping("Email", "WorkEmail"),
                 },
                 ColumnMatchType = columnMatchType,
             }, CancellationToken.None);
@@ -73,11 +71,9 @@ namespace OttoPilot.Domain.UnitTests.BusinessLayer.StepImplementations
                 OutputDatasetName = TestOutputDatasetName,
                 ComparisonColumns = new[]
                 {
-                    new ColumnMapping
-                    {
-                        SourceColumnName = "FirstName",
-                        DestinationColumnName = "FirstName",
-                    }
+                    new ColumnMapping("FirstName", "FirstName"),
+                    new ColumnMapping("LastName", "Surname"),
+                    new ColumnMapping("Email", "WorkEmail"),
                 },
                 ColumnMatchType = columnMatchType,
             }, CancellationToken.None);
@@ -86,6 +82,150 @@ namespace OttoPilot.Domain.UnitTests.BusinessLayer.StepImplementations
             
             Assert.AreEqual(3, result.Columns.Count);
             Assert.AreEqual(2, result.Rows.Count);
+        }
+
+        [TestCase(ColumnMatchType.All)]
+        [TestCase(ColumnMatchType.Any)]
+        public async Task Execute_EquivalentDatasets_NoRowsReturned(ColumnMatchType columnMatchType)
+        {
+            var primaryDataset = MockDatatable1;
+
+            primaryDataset.Rows.Add(MockFirstName1, MockLastName1, MockEmail1);
+            primaryDataset.Rows.Add(MockFirstName2, MockLastName2, MockEmail2);
+
+            var comparisonDataset = MockDatatable2;
+
+            comparisonDataset.Rows.Add(MockFirstName1, MockLastName1, MockEmail1);
+            comparisonDataset.Rows.Add(MockFirstName2, MockLastName2, MockEmail2);
+            
+            _datasetPool.InsertOrReplace(TestPrimaryDatasetName, primaryDataset);
+            _datasetPool.InsertOrReplace(TestComparisonDatasetName, comparisonDataset);
+            
+            _ = await _sut.Execute(new GetUniqueRowsStepParameters
+            {
+                PrimaryDatasetName = TestPrimaryDatasetName,
+                ComparisonDatasetName = TestComparisonDatasetName,
+                OutputDatasetName = TestOutputDatasetName,
+                ComparisonColumns = new[]
+                {
+                    new ColumnMapping("FirstName", "FirstName"),
+                    new ColumnMapping("LastName", "Surname"),
+                    new ColumnMapping("Email", "WorkEmail"),
+                },
+                ColumnMatchType = columnMatchType,
+            }, CancellationToken.None);
+
+            var result = _datasetPool.GetDataSet(TestOutputDatasetName);
+            
+            Assert.AreEqual(3, result.Columns.Count);
+            Assert.AreEqual(0, result.Rows.Count);
+        }
+
+        [TestCase(ColumnMatchType.All)]
+        [TestCase(ColumnMatchType.Any)]
+        public async Task Execute_SingleMatchingRow_SingleRowReturned(ColumnMatchType columnMatchType)
+        {
+            var primaryDataset = MockDatatable1;
+
+            primaryDataset.Rows.Add(MockFirstName1, MockLastName1, MockEmail1);
+            primaryDataset.Rows.Add(MockFirstName2, MockLastName2, MockEmail2);
+
+            var comparisonDataset = MockDatatable2;
+
+            comparisonDataset.Rows.Add(MockFirstName1, MockLastName1, MockEmail1);
+            
+            _datasetPool.InsertOrReplace(TestPrimaryDatasetName, primaryDataset);
+            _datasetPool.InsertOrReplace(TestComparisonDatasetName, comparisonDataset);
+            
+            _ = await _sut.Execute(new GetUniqueRowsStepParameters
+            {
+                PrimaryDatasetName = TestPrimaryDatasetName,
+                ComparisonDatasetName = TestComparisonDatasetName,
+                OutputDatasetName = TestOutputDatasetName,
+                ComparisonColumns = new[]
+                {
+                    new ColumnMapping("FirstName", "FirstName"),
+                    new ColumnMapping("LastName", "Surname"),
+                    new ColumnMapping("Email", "WorkEmail"),
+                },
+                ColumnMatchType = columnMatchType,
+            }, CancellationToken.None);
+
+            var result = _datasetPool.GetDataSet(TestOutputDatasetName);
+            
+            Assert.AreEqual(3, result.Columns.Count);
+            Assert.AreEqual(1, result.Rows.Count);
+            Assert.AreEqual(MockFirstName2, result.Rows[0]["FirstName"]);
+            Assert.AreEqual(MockLastName2, result.Rows[0]["LastName"]);
+            Assert.AreEqual(MockEmail2, result.Rows[0]["Email"]);
+        }
+
+        [Test]
+        public async Task Execute_PartiallyMatchingRow_AnyMatch_NoRowsReturned()
+        {
+            var primaryDataset = MockDatatable1;
+
+            primaryDataset.Rows.Add(MockFirstName1, MockLastName1, MockEmail1);
+
+            var comparisonDataset = MockDatatable2;
+
+            comparisonDataset.Rows.Add(MockFirstName1, MockLastName1, "another@email.com");
+            
+            _datasetPool.InsertOrReplace(TestPrimaryDatasetName, primaryDataset);
+            _datasetPool.InsertOrReplace(TestComparisonDatasetName, comparisonDataset);
+            
+            _ = await _sut.Execute(new GetUniqueRowsStepParameters
+            {
+                PrimaryDatasetName = TestPrimaryDatasetName,
+                ComparisonDatasetName = TestComparisonDatasetName,
+                OutputDatasetName = TestOutputDatasetName,
+                ComparisonColumns = new[]
+                {
+                    new ColumnMapping("FirstName", "FirstName"),
+                    new ColumnMapping("LastName", "Surname"),
+                    new ColumnMapping("Email", "WorkEmail"),
+                },
+                ColumnMatchType = ColumnMatchType.Any,
+            }, CancellationToken.None);
+
+            var result = _datasetPool.GetDataSet(TestOutputDatasetName);
+            
+            Assert.AreEqual(3, result.Columns.Count);
+            Assert.AreEqual(0, result.Rows.Count);
+        }
+
+        [Test]
+        public async Task Execute_PartiallyMarchingRow_AllMatch_SingleRowReturned()
+        {
+            var primaryDataset = MockDatatable1;
+
+            primaryDataset.Rows.Add(MockFirstName1, MockLastName1, MockEmail1);
+
+            var comparisonDataset = MockDatatable2;
+
+            comparisonDataset.Rows.Add(MockFirstName1, MockLastName1, "another@email.com");
+            
+            _datasetPool.InsertOrReplace(TestPrimaryDatasetName, primaryDataset);
+            _datasetPool.InsertOrReplace(TestComparisonDatasetName, comparisonDataset);
+            
+            _ = await _sut.Execute(new GetUniqueRowsStepParameters
+            {
+                PrimaryDatasetName = TestPrimaryDatasetName,
+                ComparisonDatasetName = TestComparisonDatasetName,
+                OutputDatasetName = TestOutputDatasetName,
+                ComparisonColumns = new[]
+                {
+                    new ColumnMapping("FirstName", "FirstName"),
+                    new ColumnMapping("LastName", "Surname"),
+                    new ColumnMapping("Email", "WorkEmail"),
+                },
+                ColumnMatchType = ColumnMatchType.All,
+            }, CancellationToken.None);
+
+            var result = _datasetPool.GetDataSet(TestOutputDatasetName);
+            
+            Assert.AreEqual(3, result.Columns.Count);
+            Assert.AreEqual(1, result.Rows.Count);
         }
 
         #region TestHelpers
