@@ -1,20 +1,20 @@
 ﻿import React from 'react';
-import {useFormStore} from "../form.store";
 import {Grid, TextField, Typography} from "@material-ui/core";
 import {Api} from "../../../../models/api-models";
+import {useFlowFormStore} from "../../../../hooks/use-stores";
 
 interface LoadCsvStepForm {
   order: number;
 }
 
 const LoadCsvStepForm = ({ order }: LoadCsvStepForm) => {
-  const store = useFormStore();
+  const store = useFlowFormStore();
   
   let initialFileName = '';
   let initialDatasetName = '';
   
-  if (store.flowModel.steps[order].serialisedParameters.length > 0) {
-    const initialData = JSON.parse(store.flowModel.steps[order].serialisedParameters) as Api.LoadCsvStepParameters;
+  if (store.flow.steps[order].serialisedParameters.length > 0) {
+    const initialData = JSON.parse(store.flow.steps[order].serialisedParameters) as Api.LoadCsvStepParameters;
     
     initialFileName = initialData.fileName;
     initialDatasetName = initialData.outputDatasetName;

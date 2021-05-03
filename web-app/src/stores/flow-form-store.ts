@@ -2,6 +2,7 @@
 import {makeAutoObservable, runInAction} from "mobx";
 import { Api } from "../models/api-models";
 import {createFlow, getFlow, updateFlow, deleteFlow, runFlow} from "../components/flows/shared/flows.service";
+import {StepType} from "../models/enums";
 
 const defaultFlow: Api.Flow = {
   id: 0,
@@ -55,6 +56,31 @@ export default class FlowFormStore {
   
   hideAddStepModal() {
     this.addStepModalShown = false;
+  }
+  
+  addStepAndCloseModal(stepType: StepType) {    
+    const newStep: Api.Step = {
+      stepType,
+      order: this.flow.steps.length,
+      name: '',
+      serialisedParameters: '',
+    };
+    
+    this.flow.steps.push(newStep);
+    
+    this.hideAddStepModal();
+  }
+  
+  deleteStep(order: number) {
+    
+  }
+  
+  updateStep(order: number, step: Api.Step) {
+    this.flow.steps[order] = step;
+  }
+  
+  updateStepConfiguration<T>(order: number, configuration: T) {
+    this.flow.steps[order].serialisedParameters = JSON.stringify(configuration);
   }
   
   private updateFlow() {

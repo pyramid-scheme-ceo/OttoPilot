@@ -1,16 +1,26 @@
-﻿namespace OttoPilot.Domain.BusinessObjects
+﻿using System;
+
+namespace OttoPilot.Domain.BusinessObjects
 {
     public class ColumnMapping
     {
         public ColumnMapping(string sourceColumnName, string destinationColumnName)
         {
+            if (string.IsNullOrEmpty(sourceColumnName))
+            {
+                throw new ArgumentNullException(nameof(sourceColumnName));
+            }
+
+            if (string.IsNullOrEmpty(destinationColumnName))
+            {
+                throw new ArgumentNullException(nameof(destinationColumnName));
+            }
+            
             SourceColumnName = sourceColumnName;
             DestinationColumnName = destinationColumnName;
         }
         
-        public ColumnMapping() { }
-        
-        public string SourceColumnName { get; set; }
-        public string DestinationColumnName { get; set; }
+        public string SourceColumnName { get; }
+        public string DestinationColumnName { get; }
     }
 }

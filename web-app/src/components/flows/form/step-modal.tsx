@@ -10,11 +10,11 @@ import {
   IconButton,
   Typography
 } from "@material-ui/core";
-import {useFormStore} from "./form.store";
 import {observer} from "mobx-react";
 import {makeStyles} from "@material-ui/core/styles";
 import Add from '@material-ui/icons/Add';
 import {StepType} from "../../../models/enums";
+import {useFlowFormStore} from "../../../hooks/use-stores";
 
 interface StepOption {
   stepType: StepType;
@@ -38,6 +38,11 @@ const stepOptions: StepOption[] = [
     name: 'Generate CSV',
     description: 'Exports a dataset into a CSV file',
   },
+  {
+    stepType: StepType.GetUniqueRows,
+    name: 'Get unique rows',
+    description: 'Find unique rows between two datasets',
+  },
 ];
 
 const useStyles = makeStyles({
@@ -53,11 +58,11 @@ const useStyles = makeStyles({
 })
 
 const StepModal = observer(() => {
-  const store = useFormStore();
+  const store = useFlowFormStore();
   const classes = useStyles();
   
   return (
-    <Dialog open={!store.stepModelHidden} onClose={() => store.hideStepModal()}>
+    <Dialog open={store.addStepModalShown} onClose={() => store.hideAddStepModal()}>
       <DialogTitle>
         Add step
       </DialogTitle>
@@ -77,7 +82,7 @@ const StepModal = observer(() => {
             </Grid>
             <Grid container item xs={2} justify="center" alignItems="center">
               <Grid item>
-                <IconButton onClick={() => store.addStepAndHideModal(s.stepType)}>
+                <IconButton onClick={() => store.addStepAndCloseModal(s.stepType)}>
                   <Add />
                 </IconButton>
               </Grid>
@@ -86,7 +91,7 @@ const StepModal = observer(() => {
         ))}
       </DialogContent>
       <DialogActions>
-        <Button color="primary" onClick={() => store.hideStepModal()}>
+        <Button color="primary" onClick={() => store.hideAddStepModal()}>
           Cancel
         </Button>
       </DialogActions>
