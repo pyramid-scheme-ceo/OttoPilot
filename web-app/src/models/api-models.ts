@@ -25,6 +25,13 @@ export namespace Api {
 		order: number;
 		serialisedParameters: string;
 	}
+	export interface FindAndReplaceStepParameters
+	{
+		datasetName: string;
+		searchText: string;
+		replaceText: string;
+		searchColumns: string[];
+	}
 	export interface GenerateCsvStepParameters
 	{
 		datasetName: string;

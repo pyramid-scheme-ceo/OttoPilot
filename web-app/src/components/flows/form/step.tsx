@@ -15,6 +15,7 @@ import GenerateCsvStepForm from "./steps/generate-csv-step-form";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GetUniqueRowsStepForm from "./steps/get-unique-rows-step-form";
 import {useFlowFormStore} from "../../../hooks/use-stores";
+import FindAndReplaceStepForm from "./steps/find-and-replace-step-form";
 
 interface StepProps {
   stepType: StepType;
@@ -27,6 +28,7 @@ const getStepTitle = (stepType: StepType): string => {
     case StepType.TransformFile: return 'Transform Dataset';
     case StepType.GenerateCsv: return 'Generate CSV';
     case StepType.GetUniqueRows: return 'Get unique rows';
+    case StepType.FindAndReplace: return 'Find and replace';
     default: return '';
   }
 };
@@ -36,6 +38,7 @@ const getStepForm = (stepType: StepType, order: number): JSX.Element => {
     case StepType.LoadCsv: return <LoadCsvStepForm order={order} />;
     case StepType.GenerateCsv: return <GenerateCsvStepForm order={order} />;
     case StepType.GetUniqueRows: return <GetUniqueRowsStepForm order={order} />;
+    case StepType.FindAndReplace: return <FindAndReplaceStepForm order={order} />;
     default: throw new Error("Unexpected step type");
   }
 };

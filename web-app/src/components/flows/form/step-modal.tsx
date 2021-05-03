@@ -43,6 +43,11 @@ const stepOptions: StepOption[] = [
     name: 'Get unique rows',
     description: 'Find unique rows between two datasets',
   },
+  {
+    stepType: StepType.FindAndReplace,
+    name: 'Find and replace',
+    description: 'Find and replace text within a dataset',
+  },
 ];
 
 const useStyles = makeStyles({

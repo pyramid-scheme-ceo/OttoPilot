@@ -83,6 +83,16 @@ export default class FlowFormStore {
     this.flow.steps[order].serialisedParameters = JSON.stringify(configuration);
   }
   
+  getStepConfiguration<T>(order: number): T | null {
+    const serialisedParameters = this.flow.steps[order].serialisedParameters;
+    
+    if (!serialisedParameters || serialisedParameters === '') {
+      return null;
+    }
+    
+    return JSON.parse(serialisedParameters) as T;
+  }
+  
   private updateFlow() {
     this.rootStore.executeServiceRequest<void>(() => updateFlow(this.flow));
   }
