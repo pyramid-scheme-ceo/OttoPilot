@@ -11,11 +11,13 @@ namespace OttoPilot.Domain.BusinessLayer.Services
     {
         private readonly IRepository<Flow> _flowRepository;
         private readonly Func<IStep, IStepSupervisor> _stepSupervisorFactory;
+        private readonly IDatasetPool _datasetPool;
 
-        public FlowService(IRepository<Flow> flowRepository, Func<IStep, IStepSupervisor> stepSupervisorFactory)
+        public FlowService(IRepository<Flow> flowRepository, Func<IStep, IStepSupervisor> stepSupervisorFactory, IDatasetPool datasetPool)
         {
             _flowRepository = flowRepository;
             _stepSupervisorFactory = stepSupervisorFactory;
+            _datasetPool = datasetPool;
         }
         
         public async Task RunFlow(long flowId, CancellationToken cancel)
@@ -40,6 +42,8 @@ namespace OttoPilot.Domain.BusinessLayer.Services
                     throw;
                 }
             }
+
+            var dataSet = _datasetPool.GetDataSet("CurrentUsers");
         }
     }
 }

@@ -2,6 +2,10 @@
 //     Changes to this file may cause incorrect behavior and will be lost if
 //     the code is regenerated.
 
+export enum ColumnMatchType { 
+	Any = 0, 
+	All = 1
+}
 export enum StepType { 
 	LoadCsv = 0, 
 	TransformFile = 1, 

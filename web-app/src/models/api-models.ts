@@ -8,6 +8,11 @@ export namespace Api {
     message: string;
     data: T
   }
+	export interface ColumnMapping
+	{
+		sourceColumnName: string;
+		destinationColumnName: string;
+	}
 	export interface CreateResponse
 	{
 		id: number;
@@ -36,6 +41,14 @@ export namespace Api {
 	{
 		datasetName: string;
 		fileName: string;
+	}
+	export interface GetUniqueRowsStepParameters
+	{
+		primaryDatasetName: string;
+		comparisonDatasetName: string;
+		outputDatasetName: string;
+		comparisonColumns: Api.ColumnMapping[];
+		columnMatchType: import('./enums').ColumnMatchType;
 	}
 	export interface LoadCsvStepParameters
 	{

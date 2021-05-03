@@ -9,7 +9,7 @@ interface FindAndReplaceStepFormProps {
   order: number;
 }
 
-let defaultConfiguration: Api.FindAndReplaceStepParameters = {
+const defaultConfiguration: Api.FindAndReplaceStepParameters = {
   datasetName: '',
   searchText: '',
   replaceText: '',
@@ -19,7 +19,6 @@ let defaultConfiguration: Api.FindAndReplaceStepParameters = {
 const FindAndReplaceStepForm = observer(({ order }: FindAndReplaceStepFormProps) => {
   const store = useFlowFormStore();
   const existingConfiguration = store.getStepConfiguration<Api.FindAndReplaceStepParameters>(order);
-  console.log(existingConfiguration);
   const configuration = existingConfiguration || defaultConfiguration;
    
   const updateDatasetName = (newDatasetName: string) => {

@@ -68,15 +68,6 @@ const Step = ({ stepType, order }: StepProps) => {
       </AccordionSummary>
       <AccordionDetails>
         <Grid container spacing={3}>
-          <Grid item xs={8} style={{ paddingTop: 0 }}>
-            <TextField
-              id={`step-name-${order}`}
-              label="Name"
-              value={store.flow.steps[order].name}
-              onChange={e => store.updateStep(order, { ...store.flow.steps[order], name: e.target.value })}
-              fullWidth
-            />
-          </Grid>
           <Grid item xs={12}>
             {getStepForm(stepType, order)}
           </Grid>
