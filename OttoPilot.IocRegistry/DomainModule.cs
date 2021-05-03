@@ -25,6 +25,7 @@ namespace OttoPilot.IocRegistry
                 {StepType.TransformFile, typeof(TransformDatasetStepParameters)},
                 {StepType.GenerateCsv, typeof(GenerateCsvStepParameters)},
                 {StepType.GetUniqueRows, typeof(GetUniqueRowsStepParameters)},
+                {StepType.FindAndReplace, typeof(FindAndReplaceStepParameters)},
             };
         }
         
@@ -41,6 +42,7 @@ namespace OttoPilot.IocRegistry
             builder.RegisterStep<TransformDatasetStepParameters, TransformDatasetStepImplementation>();
             builder.RegisterStep<GenerateCsvStepParameters, GenerateCsvStepImplementation>();
             builder.RegisterStep<GetUniqueRowsStepParameters, GetUniqueRowsStepImplementation>();
+            builder.RegisterStep<FindAndReplaceStepParameters, FindAndReplaceStepImplementation>();
             #endregion
             
             builder.RegisterType<LocalFileProvider>().As<IFileProvider>();

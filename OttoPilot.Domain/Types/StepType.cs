@@ -9,5 +9,6 @@ namespace OttoPilot.Domain.Types
         TransformFile = 1,
         GenerateCsv = 2,
         GetUniqueRows = 3,
+        FindAndReplace = 4,
     }
 }
