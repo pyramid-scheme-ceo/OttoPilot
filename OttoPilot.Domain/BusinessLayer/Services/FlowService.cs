@@ -42,8 +42,6 @@ namespace OttoPilot.Domain.BusinessLayer.Services
                     throw;
                 }
             }
-
-            var dataSet = _datasetPool.GetDataSet("CurrentUsers");
         }
     }
 }

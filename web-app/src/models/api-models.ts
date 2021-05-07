@@ -55,4 +55,10 @@ export namespace Api {
 		fileName: string;
 		outputDatasetName: string;
 	}
+	export interface TransformDatasetStepParameters
+	{
+		inputDatasetName: string;
+		outputDatasetName: string;
+		columnMappings: Api.ColumnMapping[];
+	}
 }

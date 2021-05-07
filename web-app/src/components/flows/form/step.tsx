@@ -1,14 +1,6 @@
 ﻿import React from 'react';
 import {StepType} from "../../../models/enums";
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Grid,
-  IconButton,
-  TextField,
-  Typography
-} from "@material-ui/core";
+import {Accordion, AccordionDetails, AccordionSummary, Grid, IconButton, Typography} from "@material-ui/core";
 import Delete from '@material-ui/icons/Delete';
 import LoadCsvStepForm from "./steps/load-csv-step-form";
 import GenerateCsvStepForm from "./steps/generate-csv-step-form";
@@ -16,6 +8,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import GetUniqueRowsStepForm from "./steps/get-unique-rows-step-form";
 import {useFlowFormStore} from "../../../hooks/use-stores";
 import FindAndReplaceStepForm from "./steps/find-and-replace-step-form";
+import TransformDatasetStepForm from "./steps/transform-dataset-step-form";
 
 interface StepProps {
   stepType: StepType;
@@ -39,6 +32,7 @@ const getStepForm = (stepType: StepType, order: number): JSX.Element => {
     case StepType.GenerateCsv: return <GenerateCsvStepForm order={order} />;
     case StepType.GetUniqueRows: return <GetUniqueRowsStepForm order={order} />;
     case StepType.FindAndReplace: return <FindAndReplaceStepForm order={order} />;
+    case StepType.TransformFile: return <TransformDatasetStepForm order={order} />;
     default: throw new Error("Unexpected step type");
   }
 };

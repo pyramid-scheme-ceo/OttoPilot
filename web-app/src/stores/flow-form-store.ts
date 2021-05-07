@@ -72,7 +72,7 @@ export default class FlowFormStore {
   }
   
   deleteStep(order: number) {
-    
+    this.flow.steps.splice(order, 1);
   }
   
   updateStep(order: number, step: Api.Step) {
